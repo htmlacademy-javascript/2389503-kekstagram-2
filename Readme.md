@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Макс Доронин](https://up.htmlacademy.ru/javascript-individual/2/user/2389503).
-* Наставник: `Неизвестно`.
+* Наставник: [Виктория Никитина](https://up.htmlacademy.ru/javascript-individual/2/user/2389503).
 
 ---
 
