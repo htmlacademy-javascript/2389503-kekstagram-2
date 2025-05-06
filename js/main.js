@@ -129,6 +129,4 @@ const getPhotos = () => {
   return photos;
 };
 
-
-console.log(getPhotos());
-// const createKeksPhoto = () => keksPhoto;
+getPhotos();
