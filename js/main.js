@@ -84,11 +84,9 @@ const keksPhoto = {
 };
 
 const getRandomPositiveInteger = (min, max) => {
-  const lower = Math.ceil(Math.min(min, max));
-  const upper = Math.floor(Math.max(min, max));
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
 // const createKeksPhoto = () => keksPhoto;
-
-
