@@ -46,7 +46,7 @@
     [ { id: 0, avatar: 'img/avatar-0.svg', message: 'Всё отлично!', name: 'Иван' } ]
 */
 
-const messages = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -55,7 +55,7 @@ const messages = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const names = [
+const NAMES = [
   'Алексей',
   'Мария',
   'Иван',
@@ -68,20 +68,24 @@ const names = [
   'Анна'
 ];
 
-const keksPhoto = {
-  id: '',
-  url: '',
-  description: '',
-  likes: '',
-  comments: [
-    {
-      id: '',
-      avatar: '',
-      message: '',
-      name: '',
-    }
-  ],
-};
+const DESCRIPTIONS = [
+  'Солнце',
+  'Травка',
+  'Зелёная',
+  'Лягушка',
+  'Замочный',
+];
+
+const MIN_COUNT = 1;
+const MAX_COUNT = 25;
+const MIN_COUNT_MESSAGE = 0;
+const MAX_COUNT_MESSAGE = 30;
+const MIN_COUNT_AVATAR = 1;
+const MAX_COUNT_AVATAR = 6;
+const MIN_COUNT_NAMES = 0;
+const MIN_COUNT_DESCRIPTION = 0;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
 
 const getRandomPositiveInteger = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
@@ -89,8 +93,42 @@ const getRandomPositiveInteger = (min, max) => {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
-const getRandomArrayElement = () => {
+const getComments = () => {
+  const count = getRandomPositiveInteger(MIN_COUNT_MESSAGE, MAX_COUNT_MESSAGE);
+  const comments = [];
 
+  for (let i = 1; i <= count; i++) {
+    comments.push(
+      {
+        id: getRandomPositiveInteger(MIN_COUNT, MAX_COUNT_MESSAGE),
+        avatar: `img/avatar-${getRandomPositiveInteger(MIN_COUNT_AVATAR, MAX_COUNT_AVATAR)}.svg`,
+        message: MESSAGES[getRandomPositiveInteger(MIN_COUNT_MESSAGE, MESSAGES.length - 1)],
+        name: NAMES[getRandomPositiveInteger(MIN_COUNT_NAMES, NAMES.length - 1)],
+      }
+    );
+  }
+  return comments;
 };
 
+const getPhotos = () => {
+
+  const photos = [];
+
+  for (let i = 1; i <= MAX_COUNT; i++) {
+    photos.push(
+      {
+        id: i,
+        url: `photos/${i}.jpg`,
+        description: DESCRIPTIONS[getRandomPositiveInteger(MIN_COUNT_DESCRIPTION, DESCRIPTIONS.length - 1)],
+        likes: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
+        comments: getComments(),
+      }
+    );
+  }
+
+  return photos;
+};
+
+
+console.log(getPhotos());
 // const createKeksPhoto = () => keksPhoto;
