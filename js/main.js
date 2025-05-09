@@ -83,13 +83,8 @@ const getRandomArrayElement = (min, max) => {
   };
 };
 
-const getRandomPhotoId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
-const getRandomUrlId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
-const getRandomNumbersOfLikes = getRandomArrayElement(MIN_LIKES, MAX_LIKES);
-const getRandomDescription = getRandomArrayElement(MIN_COUNT_DESCRIPTION, DESCRIPTIONS.length - 1);
-const getRandomNumbersOfComments = getRandomArrayElement(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
-
 const getComments = () => {
+  const getRandomNumbersOfComments = getRandomArrayElement(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
   const count = getRandomNumbersOfComments();
   const comments = [];
 
@@ -107,6 +102,10 @@ const getComments = () => {
 };
 
 const createPhoto = () => {
+  const getRandomPhotoId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
+  const getRandomUrlId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
+  const getRandomNumbersOfLikes = getRandomArrayElement(MIN_LIKES, MAX_LIKES);
+  const getRandomDescription = getRandomArrayElement(MIN_COUNT_DESCRIPTION, DESCRIPTIONS.length - 1);
   const photos = [];
   for (let i = 1; i <= MAX_COUNT; i ++) {
     photos.push({
