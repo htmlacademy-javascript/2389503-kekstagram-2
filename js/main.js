@@ -93,6 +93,23 @@ const getRandomPositiveInteger = (min, max) => {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
+const getRandomArrayElement = (min, max) => {
+  const previousValues = [];
+
+  return () => {
+    let currentValue = getRandomPositiveInteger(min, max);
+    if(previousValues.length >= (max - min + 1)) {
+      console.error(`Перебраны все значения из диапазона от ${min} до ${max}`);
+      return null;
+    }
+    while(previousValues.includes(currentValue)) {
+      currentValue = getRandomPositiveInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
 const getComments = () => {
   const count = getRandomPositiveInteger(MIN_COUNT_MESSAGE, MAX_COUNT_MESSAGE);
   const comments = [];
@@ -130,23 +147,6 @@ const getPhotos = () => {
 };
 
 getPhotos();
-
-const getRandomArrayElement = (min, max) => {
-  const previousValues = [];
-
-  return () => {
-    let currentValue = getRandomPositiveInteger(min, max);
-    if(previousValues.length >= (max - min + 1)) {
-      console.error(`Перебраны все значения из диапазона от ${min} до ${max}`);
-      return null;
-    }
-    while(previousValues.includes(currentValue)) {
-      currentValue = getRandomPositiveInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-};
 
 const getRandomPhotoId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
 const getRandomUrlId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
