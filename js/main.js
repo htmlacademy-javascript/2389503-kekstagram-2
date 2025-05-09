@@ -130,3 +130,27 @@ const getPhotos = () => {
 };
 
 getPhotos();
+
+const getRandomArrayElement = (min, max) => {
+  const previousValues = [];
+
+  return () => {
+    let currentValue = getRandomPositiveInteger(min, max);
+    if(previousValues.length >= (max - min + 1)) {
+      console.error(`Перебраны все значения из диапазона от ${min} до ${max}`);
+      return null;
+    }
+    while(previousValues.includes(currentValue)) {
+      currentValue = getRandomPositiveInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
+const getRandomPhotoId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
+const getRandomUrlId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
+const getRandomNumbersOfLikes = getRandomArrayElement(MIN_LIKES, MAX_LIKES);
+const getRandomNumbersOfComments = getRandomArrayElement(MIN_COUNT_MESSAGE, MAX_COUNT_MESSAGE);
+const getRandomAvatarId = getRandomArrayElement(MIN_COUNT_AVATAR, MAX_COUNT_AVATAR);
+const getRandomNumber = getRandomArrayElement(MIN_COUNT , MAX_LIKES);
