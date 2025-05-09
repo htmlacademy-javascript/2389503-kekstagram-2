@@ -54,9 +54,7 @@ const MIN_COUNT_COMMENTS = 0;
 const MAX_COUNT_COMMENTS = 30;
 const MIN_COUNT_AVATAR = 1;
 const MAX_COUNT_AVATAR = 6;
-const MIN_COUNT_NAMES = 0;
-const MIN_COUNT_MESSAGES = 0;
-const MIN_COUNT_DESCRIPTION = 0;
+const MIN_INDEX = 0;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 
@@ -66,7 +64,9 @@ const getRandomPositiveInteger = (min, max) => {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
-const getRandomArrayElement = (min, max) => {
+const getRandArrElem = (arr) => arr[getRandomPositiveInteger(MIN_INDEX, arr.length - 1)];
+
+const getRandUniqNumb = (min = 0, max = MAX_COUNT_COMMENTS) => {
   const previousValues = [];
 
   return () => {
@@ -83,17 +83,18 @@ const getRandomArrayElement = (min, max) => {
 };
 
 const getComments = () => {
-  const getRandomNumbersOfComments = getRandomArrayElement(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
+  const getRandomNumbersOfComments = getRandUniqNumb(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
+  const getUniqCommentsId = getRandUniqNumb();
   const count = getRandomNumbersOfComments();
   const comments = [];
 
   for (let i = 1; i <= count; i++) {
     comments.push(
       {
-        id: getRandomPositiveInteger(MIN_COUNT , MAX_LIKES),
+        id: getUniqCommentsId(),
         avatar: `img/avatar-${getRandomPositiveInteger(MIN_COUNT_AVATAR, MAX_COUNT_AVATAR)}.svg`,
-        message: MESSAGES[getRandomPositiveInteger(MIN_COUNT_MESSAGES, MESSAGES.length - 1)],
-        name: NAMES[getRandomPositiveInteger(MIN_COUNT_NAMES, NAMES.length - 1)],
+        message: getRandArrElem(MESSAGES),
+        name: getRandArrElem(NAMES),
       }
     );
   }
@@ -101,17 +102,16 @@ const getComments = () => {
 };
 
 const createPhoto = () => {
-  const getRandomPhotoId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
-  const getRandomUrlId = getRandomArrayElement(MIN_COUNT, MAX_COUNT);
-  const getRandomNumbersOfLikes = getRandomArrayElement(MIN_LIKES, MAX_LIKES);
-  const getRandomDescription = getRandomArrayElement(MIN_COUNT_DESCRIPTION, DESCRIPTIONS.length - 1);
+  const getRandomPhotoId = getRandUniqNumb(MIN_COUNT, MAX_COUNT);
+  const getRandomUrlId = getRandUniqNumb(MIN_COUNT, MAX_COUNT);
+  const getRandomNumbersOfLikes = getRandUniqNumb(MIN_LIKES, MAX_LIKES);
   const photos = [];
   for (let i = 1; i <= MAX_COUNT; i ++) {
     photos.push({
       id: getRandomPhotoId(),
       url: `photos/${getRandomUrlId()}.jpg`,
       likes: getRandomNumbersOfLikes(),
-      description: DESCRIPTIONS[getRandomDescription()],
+      description: getRandArrElem(DESCRIPTIONS),
       comments: getComments(),
     });
   }
