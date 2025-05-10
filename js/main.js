@@ -48,7 +48,6 @@ const DESCRIPTIONS = [
   'Бегемот вынырнул перед машиной на переправе через реку',
 ];
 
-const MIN_COUNT = 1;
 const MAX_COUNT = 25;
 const MIN_COUNT_COMMENTS = 0;
 const MAX_COUNT_COMMENTS = 30;
@@ -66,7 +65,7 @@ const getRandomPositiveInteger = (min, max) => {
 
 const getRandArrElem = (arr) => arr[getRandomPositiveInteger(MIN_INDEX, arr.length - 1)];
 
-const getRandUniqNumb = (min = 0, max = MAX_COUNT_COMMENTS) => {
+const getRandomUniqueNumber = (min = 0, max = MAX_COUNT_COMMENTS) => {
   const previousValues = [];
 
   return () => {
@@ -83,8 +82,8 @@ const getRandUniqNumb = (min = 0, max = MAX_COUNT_COMMENTS) => {
 };
 
 const getComments = () => {
-  const getRandomNumbersOfComments = getRandUniqNumb(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
-  const getUniqCommentsId = getRandUniqNumb();
+  const getRandomNumbersOfComments = getRandomUniqueNumber(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
+  const getUniqCommentsId = getRandomUniqueNumber();
   const count = getRandomNumbersOfComments();
   const comments = [];
 
@@ -102,20 +101,18 @@ const getComments = () => {
 };
 
 const createPhoto = () => {
-  const getRandomPhotoId = getRandUniqNumb(MIN_COUNT, MAX_COUNT);
-  const getRandomUrlId = getRandUniqNumb(MIN_COUNT, MAX_COUNT);
-  const getRandomNumbersOfLikes = getRandUniqNumb(MIN_LIKES, MAX_LIKES);
+  const getRandomNumbersOfLikes = getRandomUniqueNumber(MIN_LIKES, MAX_LIKES);
   const photos = [];
   for (let i = 1; i <= MAX_COUNT; i ++) {
     photos.push({
-      id: getRandomPhotoId(),
-      url: `photos/${getRandomUrlId()}.jpg`,
+      id: i,
+      url: `photos/${i}.jpg`,
       likes: getRandomNumbersOfLikes(),
-      description: getRandArrElem(DESCRIPTIONS),
+      description: DESCRIPTIONS[i - 1],
       comments: getComments(),
     });
   }
   return photos;
 };
 
-createPhoto();
+console.log(createPhoto());
