@@ -63,7 +63,7 @@ const getRandomPositiveInteger = (min, max) => {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
-const getRandArrElem = (arr) => arr[getRandomPositiveInteger(MIN_INDEX, arr.length - 1)];
+const getRandomArrayElement = (arr) => arr[getRandomPositiveInteger(MIN_INDEX, arr.length - 1)];
 
 const getRandomUniqueNumber = (min = 0, max = MAX_COUNT_COMMENTS) => {
   const previousValues = [];
@@ -83,17 +83,17 @@ const getRandomUniqueNumber = (min = 0, max = MAX_COUNT_COMMENTS) => {
 
 const getComments = () => {
   const getRandomNumbersOfComments = getRandomUniqueNumber(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
-  const getUniqCommentsId = getRandomUniqueNumber();
+  const getUniqueCommentsId = getRandomUniqueNumber();
   const count = getRandomNumbersOfComments();
   const comments = [];
 
   for (let i = 1; i <= count; i++) {
     comments.push(
       {
-        id: getUniqCommentsId(),
+        id: getUniqueCommentsId(),
         avatar: `img/avatar-${getRandomPositiveInteger(MIN_COUNT_AVATAR, MAX_COUNT_AVATAR)}.svg`,
-        message: getRandArrElem(MESSAGES),
-        name: getRandArrElem(NAMES),
+        message: getRandomArrayElement(MESSAGES),
+        name: getRandomArrayElement(NAMES),
       }
     );
   }
@@ -115,4 +115,4 @@ const createPhoto = () => {
   return photos;
 };
 
-console.log(createPhoto());
+createPhoto();
