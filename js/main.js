@@ -112,6 +112,7 @@ const createPhoto = () => {
       comments: getComments(),
     });
   }
+
   return photos;
 };
 
