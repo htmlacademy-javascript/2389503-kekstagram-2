@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger} from './util';
+import { getRandomPositiveInteger } from './util.js';
 
 const MESSAGES = [
   'Всё отлично!',
@@ -96,7 +96,7 @@ const getComments = () => {
   return comments;
 };
 
-const createPhoto = () => {
+export const createPhotos = () => {
   const getRandomNumbersOfLikes = getRandomUniqueNumber(MIN_LIKES, MAX_LIKES);
   const photos = [];
   for (let i = 1; i <= MAX_COUNT; i ++) {
@@ -111,5 +111,3 @@ const createPhoto = () => {
 
   return photos;
 };
-
-createPhoto();
