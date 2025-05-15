@@ -80,7 +80,8 @@ const isMeetingBeyondWorkingDay = (value1, value2, value3, value4) => {
   // console.log(`Встреча начинается на ${startMeeting} минуте`);
   // console.log(`Длительность встречи составляет ${durationMeeting} минут`);
 
-  if(startMeeting < startDay) {
+  // Гарантируется, что и рабочий день, и встреча укладываются в одни календарные сутки.
+  if(startMeeting < startDay || startMeeting > endDay) {
     return false;
   }
 
