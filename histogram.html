@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The histogram</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 75%;
+      margin: 0 auto;
+      margin-top: 100px;
+      padding: 80px 100px;
+      outline: 1px solid red;
+    }
+
+    .histogram {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      min-height: 300px;
+    }
+
+    .histogram__item {
+      flex-basis: 8%;
+      border: 2px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="container">
+      <ul class="histogram">
+        <!-- <li class="histogram__item" style="height: 500px; background-color: green"></li> -->
+      </ul>
+    </div>
+  </main>
+  <script>
+    const data = [
+      {
+        month: 'Январь',
+        value: 12,
+        color: 'red',
+      },
+      {
+        month: 'Февраль',
+        value: 10,
+        color: 'green',
+      },
+      {
+        month: 'Март',
+        value: 12,
+        color: 'blue',
+      },
+      {
+        month: 'Апрель',
+        value: 10,
+        color: 'orange',
+      },
+      {
+        month: 'Май',
+        value: 0,
+        color: 'red',
+      },
+      {
+        month: 'Июнь',
+        value: 12,
+        color: 'brown',
+      },
+      {
+        month: 'Июль',
+        value: 8,
+        color: 'gray',
+      },
+      {
+        month: 'Август',
+        value: 10,
+        color: 'tomato',
+      },
+      {
+        month: 'Сентябрь',
+        value: 11,
+        color: 'purple',
+      },
+      {
+        month: 'Октябрь',
+        value: 12,
+        color: 'black',
+      },
+      {
+        month: 'Ноябрь',
+        value: 7,
+        color: 'yellow',
+      },
+      {
+        month: 'Декабрь',
+        value: 15,
+        color: 'pink',
+      },
+    ]
+
+    const list = document.querySelector('.histogram');
+
+    data.forEach(({ value, color }) => {
+      const listItem = document.createElement('li');
+      listItem.classList.add('histogram__item');
+      listItem.style.height = `${value * 20}px`;
+      listItem.style.backgroundColor = color;
+      list.append(listItem);
+    })
+
+  </script>
+</body>
+
+</html>
