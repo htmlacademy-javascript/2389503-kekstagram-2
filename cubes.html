@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      width: 668px;
+      margin: 100px auto 0;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cube {
+      width: 150px;
+      height: 150px;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <ul class="list">
+      <!-- <li class="cube" style="background-color: green;"></li> -->
+
+    </ul>
+  </div>
+
+  <script>
+    const list = document.querySelector('.list')
+    const colors = ['red', 'blue', 'green', 'violet', 'yellow', 'black', 'tomato', 'gray', 'orange', 'brown'];
+    colors.forEach((item) => {
+      const li = document.createElement('li');
+      li.classList.add('cube');
+      li.style.backgroundColor = item;
+      list.append(li);
+    });
+  </script>
+</body>
+
+</html>
