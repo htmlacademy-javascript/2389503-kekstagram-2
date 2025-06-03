@@ -13,9 +13,11 @@ const checkPolindrom = (text) => {
   const normalizeText = text.replaceAll(' ', '').toLowerCase();
   let reverse = '';
   for (let i = normalizeText.length - 1; i >= 0; i--) {
-    reverse += normalizeText.at(i);
+    reverse += normalizeText[i];
   }
-
+  // for (let i = 1; i <= normalizeText.length; i++) {
+  //   reverse += normalizeText.at(-i);
+  // }
   return reverse === normalizeText;
 };
 
@@ -29,7 +31,7 @@ const getIntPosNumber = (text) => {
   let result = '';
 
   if (typeof text === 'number') {
-    result = text.toString();
+    result = text.toString().replaceAll('.', '').replaceAll('-', '');
   }
 
   for (let i = 0; i <= text.length - 1; i++) {
@@ -42,10 +44,10 @@ const getIntPosNumber = (text) => {
 
 getIntPosNumber('2023 год');
 getIntPosNumber('ECMAScript 2022');
-getIntPosNumber('1 кефир, 0.5 батона');
+console.log(getIntPosNumber('1 кефир, 0.5 батона'));
 getIntPosNumber('агент 007');
 getIntPosNumber('а я томат');
 
-getIntPosNumber(2023);
-getIntPosNumber(-1);
-getIntPosNumber(1.5);
+console.log(getIntPosNumber(2023));
+console.log(getIntPosNumber(-1));
+console.log(getIntPosNumber(1.5));
