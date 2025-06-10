@@ -1,4 +1,6 @@
-const renderCards = (photos) => {
+import './modal.js';
+
+export const renderCards = (photos) => {
   // Нахожу контейнер для изображений от других пользователей
   const picturesContainer = document.querySelector('.pictures');
   // Нахожу шаблон фотографии
@@ -17,11 +19,12 @@ const renderCards = (photos) => {
     pictureImage.alt = description;
     pictureLikes.textContent = likes;
     pictureComments.textContent = comments.length;
+    cloneItem.addEventListener('click', (evt) => {
+      console.log(evt.target);
+    });
     similarListFragment.appendChild(cloneItem);
   });
 
   return picturesContainer.appendChild(similarListFragment);
 
 };
-
-export { renderCards };
