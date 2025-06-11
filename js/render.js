@@ -1,4 +1,4 @@
-import './modal.js';
+import { modal } from './modal.js';
 
 export const renderCards = (photos) => {
   // Нахожу контейнер для изображений от других пользователей
@@ -20,7 +20,10 @@ export const renderCards = (photos) => {
     pictureLikes.textContent = likes;
     pictureComments.textContent = comments.length;
     cloneItem.addEventListener('click', (evt) => {
-      console.log(evt.target);
+      // Отменяю действие по умолчанию: переход на страницу
+      evt.preventDefault();
+      // Открываю модальное окно
+      modal.classList.remove('hidden');
     });
     similarListFragment.appendChild(cloneItem);
   });
@@ -28,3 +31,5 @@ export const renderCards = (photos) => {
   return picturesContainer.appendChild(similarListFragment);
 
 };
+
+console.log(document.querySelector('.picture'));
