@@ -28,6 +28,6 @@ export const renderCards = (photos) => {
     similarListFragment.appendChild(cloneItem);
   });
 
-  return picturesContainer.appendChild(similarListFragment);
+  picturesContainer.appendChild(similarListFragment);
 
 };
