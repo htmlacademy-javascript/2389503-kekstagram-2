@@ -1,12 +1,12 @@
 import { modal } from './modal.js';
+// Нахожу контейнер для изображений от других пользователей
+const picturesContainer = document.querySelector('.pictures');
+// Нахожу шаблон фотографии
+const photoTemplate = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
 
 export const renderCards = (photos) => {
-  // Нахожу контейнер для изображений от других пользователей
-  const picturesContainer = document.querySelector('.pictures');
-  // Нахожу шаблон фотографии
-  const photoTemplate = document.querySelector('#picture')
-    .content
-    .querySelector('.picture');
   // Создаю коробочку, в которую я буду складывать отображённые фотографии
   const similarListFragment = document.createDocumentFragment();
 
@@ -31,5 +31,3 @@ export const renderCards = (photos) => {
   return picturesContainer.appendChild(similarListFragment);
 
 };
-
-console.log(document.querySelector('.picture'));
