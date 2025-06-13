@@ -44,7 +44,7 @@ const getIntPosNumber = (text) => {
 
 getIntPosNumber('2023 год');
 getIntPosNumber('ECMAScript 2022');
-console.log(getIntPosNumber('1 кефир, 0.5 батона'));
+// console.log(getIntPosNumber('1 кефир, 0.5 батона'));
 getIntPosNumber('агент 007');
 getIntPosNumber('а я томат');
 
@@ -100,7 +100,7 @@ isMeetingBeyondWorkingDay('8:00', '17:30', '08:00', 900);
 // имяФункции('14:00', '17:30', '08:0', 90);  // false
 // имяФункции('8:00', '17:30', '08:00', 900); // false
 
-console.log(getIntPosNumber(2023));
-console.log(getIntPosNumber(-1));
-console.log(getIntPosNumber(1.5));
+// console.log(getIntPosNumber(2023));
+// console.log(getIntPosNumber(-1));
+// console.log(getIntPosNumber(1.5));
 
