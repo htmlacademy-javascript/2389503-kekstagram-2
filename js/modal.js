@@ -1,9 +1,11 @@
 import { isEscapeKey } from './util.js';
-
 // Нахожу модальное окно в DOM и записываю в переменную
 const modal = document.querySelector('.big-picture');
 // Нахожу кнопку закрытия на модальном окне
 const closeButton = modal.querySelector('.big-picture__cancel');
+// Нахожу полноразмерное изображение
+const photoPreview = modal.querySelector('.big-picture__img').querySelector('img');
+
 // Функция-обработчик нажатия клавиши ESCAPE
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
@@ -17,6 +19,8 @@ export const openModal = () => {
   // 2. Добавить обработчики для закрытия (как только окно появилось на документик нужно повесить обработчик)
   document.addEventListener('keydown', onDocumentKeydown);
   // 3. Прочая логика (Если будет)
+
+
 };
 
 const closeModal = () => {
