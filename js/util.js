@@ -7,7 +7,3 @@ export const getRandomPositiveInteger = (min, max) => {
 // Функция принимает объект события и возвращает булево значение в зависимости от того,
 //что является значением свойства key
 export const isEscapeKey = (evt) => evt.key === 'Escape';
-
-// Функция принимает объект события и возвращает булево значение в зависимости от того,
-//что является значением свойства key
-export const isEnterKey = (evt) => evt.key === 'Escape';
