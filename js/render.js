@@ -1,4 +1,5 @@
 import { modal } from './modal.js';
+import { isEscapeKey } from './util.js';
 // Нахожу контейнер для изображений от других пользователей
 const picturesContainer = document.querySelector('.pictures');
 // Нахожу шаблон фотографии
@@ -19,11 +20,14 @@ export const renderCards = (photos) => {
     pictureImage.alt = description;
     pictureLikes.textContent = likes;
     pictureComments.textContent = comments.length;
-    cloneItem.addEventListener('click', (evt) => {
-      // Отменяю действие по умолчанию: переход на страницу
-      evt.preventDefault();
-      // Открываю модальное окно
+    cloneItem.addEventListener('click', () => {
       modal.classList.remove('hidden');
+      document.addEventListener('keydown', (evt) => {
+        // При нажатии на клавишу ESC модальное окно закрывается
+        if(isEscapeKey(evt)) {
+          modal.classList.add('hidden');
+        }
+      });
     });
     similarListFragment.appendChild(cloneItem);
   });
