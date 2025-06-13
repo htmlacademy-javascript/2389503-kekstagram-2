@@ -1,5 +1,4 @@
-import { modal } from './modal.js';
-import { isEscapeKey } from './util.js';
+import { openModal } from './modal';
 // Нахожу контейнер для изображений от других пользователей
 const picturesContainer = document.querySelector('.pictures');
 // Нахожу шаблон фотографии
@@ -21,12 +20,7 @@ export const renderCards = (photos) => {
     pictureLikes.textContent = likes;
     pictureComments.textContent = comments.length;
     cloneItem.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      document.addEventListener('keydown', (evt) => {
-        if(isEscapeKey(evt)) {
-          modal.classList.add('hidden');
-        }
-      });
+      openModal();
     });
     similarListFragment.appendChild(cloneItem);
   });
