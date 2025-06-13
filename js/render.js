@@ -23,7 +23,7 @@ export const renderCards = (photos) => {
     pictureComments.textContent = comments.length;
     cloneItem.addEventListener('click', (evt) => {
       evt.preventDefault();
-      openModal();
+      openModal(id, url, description, likes, comments);
     });
     similarListFragment.appendChild(cloneItem);
   });
