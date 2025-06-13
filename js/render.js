@@ -1,5 +1,5 @@
 import { modal } from './modal.js';
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, isEnterKey } from './util.js';
 // Нахожу контейнер для изображений от других пользователей
 const picturesContainer = document.querySelector('.pictures');
 // Нахожу шаблон фотографии
@@ -23,12 +23,18 @@ export const renderCards = (photos) => {
     cloneItem.addEventListener('click', () => {
       modal.classList.remove('hidden');
       document.addEventListener('keydown', (evt) => {
-        // При нажатии на клавишу ESC модальное окно закрывается
         if(isEscapeKey(evt)) {
           modal.classList.add('hidden');
         }
       });
     });
+
+    cloneItem.addEventListener('keydown', (evt) => {
+      if(isEnterKey(evt)) {
+        modal.classList.remove('hidden');
+      }
+    });
+
     similarListFragment.appendChild(cloneItem);
   });
 
