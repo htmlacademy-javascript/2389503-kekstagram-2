@@ -1,3 +1,5 @@
+import { isEscapeKey } from './util.js';
+
 // Нахожу модальное окно в DOM и записываю в переменную
 // Экспортирую, чтобы при клике окно открывалось
 export const modal = document.querySelector('.big-picture');
@@ -14,7 +16,7 @@ closeButton.addEventListener('click', ()=> {
 // Подключаю обработчик нажатия на клавишу
 document.addEventListener('keydown', (evt) => {
   // При нажатии на клавишу ESC модальное окно закрывается
-  if(evt.key === 'Escape') {
+  if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
   }
 });
