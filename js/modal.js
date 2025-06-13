@@ -1,14 +1,12 @@
 import { isEscapeKey } from './util.js';
-// Нахожу модальное окно в DOM и записываю в переменную
+
 const modal = document.querySelector('.big-picture');
-// Нахожу кнопку закрытия на модальном окне
 const closeButton = modal.querySelector('.big-picture__cancel');
-// Нахожу полноразмерное изображение
 const photoPreview = modal.querySelector('.big-picture__img').querySelector('img');
 const likesCount = modal.querySelector('.likes-count');
 const commentShownCount = modal.querySelector('.social__comment-shown-count');
 const commentTotalCount = modal.querySelector('.social__comment-total-count');
-console.log(commentTotalCount);
+const shownComments = modal.querySelector('.social__comments');
 // Функция-обработчик нажатия клавиши ESCAPE
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
@@ -24,8 +22,9 @@ export const openModal = (id, url, description, likes, comments) => {
   // 3. Прочая логика (Если будет)
   photoPreview.src = url;
   likesCount.textContent = likes;
-  commentShownCount.textContent =
+  commentShownCount.textContent = shownComments.children.length;
   commentTotalCount.textContent = comments.length;
+
 };
 
 const closeModal = () => {
