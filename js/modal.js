@@ -18,7 +18,7 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const showModal = (isShown) => {
+const showModal = (isShown = true) => {
   if (isShown) {
     document.body.classList.add('modal-open');
     modal.classList.remove('hidden');
@@ -30,19 +30,19 @@ const showModal = (isShown) => {
   }
 };
 
-const renderComment = (comments) => {
-  comments.forEach((item) => {
+const renderComments = (comments) => {
+  comments.forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
     const cloneCommentText = cloneComment.querySelector('.social__text');
-    cloneCommentAvatar.src = item.avatar;
-    cloneCommentAvatar.alt = item.name;
-    cloneCommentText.textContent = item.message;
+    cloneCommentAvatar.src = avatar;
+    cloneCommentAvatar.alt = name;
+    cloneCommentText.textContent = message;
     listOfComments.append(cloneComment);
   });
 };
 
-const renderComments = (id, url, description, likes, comments) => {
+const renderModal = (id, url, description, likes, comments) => {
   photoPreview.src = url;
   caption.textContent = description;
   commentCount.classList.add('hidden');
@@ -50,7 +50,8 @@ const renderComments = (id, url, description, likes, comments) => {
   commentShownCount.textContent = listOfComments.children.length;
   commentTotalCount.textContent = comments.length;
   commentsLoader.classList.add('hidden');
-  renderComment(comments);
+
+  renderComments(comments);
 };
 
 const clearListOfComments = () => {
@@ -60,8 +61,8 @@ const clearListOfComments = () => {
 clearListOfComments();
 
 export const openModal = (id, url, description, likes, comments) => {
-  showModal(true);
-  renderComments(id, url, description, likes, comments);
+  showModal();
+  renderModal(id, url, description, likes, comments);
 };
 
 const closeModal = () => {
