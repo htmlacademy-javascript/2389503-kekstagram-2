@@ -6,8 +6,8 @@ const photoPreview = modal.querySelector('.big-picture__img').querySelector('img
 const likesCount = modal.querySelector('.likes-count');
 const commentShownCount = modal.querySelector('.social__comment-shown-count');
 const commentTotalCount = modal.querySelector('.social__comment-total-count');
-const shownComments = modal.querySelector('.social__comments');
-// Функция-обработчик нажатия клавиши ESCAPE
+const listOfComments = modal.querySelector('.social__comments');
+const comment = modal.querySelector('.social__comment');
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
@@ -15,16 +15,21 @@ const onDocumentKeydown = (evt) => {
 };
 
 export const openModal = (id, url, description, likes, comments) => {
-  // 1. Показать окно (Нужно удалить какой-то класс hidden)
   modal.classList.remove('hidden');
-  // 2. Добавить обработчики для закрытия (как только окно появилось на документик нужно повесить обработчик)
   document.addEventListener('keydown', onDocumentKeydown);
-  // 3. Прочая логика (Если будет)
   photoPreview.src = url;
   likesCount.textContent = likes;
-  commentShownCount.textContent = shownComments.children.length;
+  commentShownCount.textContent = listOfComments.children.length;
   commentTotalCount.textContent = comments.length;
-
+  for (let i = 0; i < comments.length; i++) {
+    const cloneComment = comment.cloneNode(true);
+    const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
+    const cloneCommentText = cloneComment.querySelector('.social__text');
+    cloneCommentAvatar.src = comments[i].avatar;
+    cloneCommentAvatar.alt = comments[i].name;
+    cloneCommentText.textContent = comments[i].message;
+    listOfComments.append(cloneComment);
+  }
 };
 
 const closeModal = () => {

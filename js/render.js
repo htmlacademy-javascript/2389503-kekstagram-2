@@ -16,7 +16,7 @@ export const renderCards = (photos) => {
     const pictureImage = cloneItem.querySelector('.picture__img');
     const pictureLikes = cloneItem.querySelector('.picture__likes');
     const pictureComments = cloneItem.querySelector('.picture__comments');
-    cloneItem.id = id;
+    cloneItem.dataset.id = id;
     pictureImage.src = url;
     pictureImage.alt = description;
     pictureLikes.textContent = likes;
