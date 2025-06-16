@@ -29,5 +29,5 @@ export const renderCards = (photos) => {
   });
 
   picturesContainer.appendChild(similarListFragment);
-
+  console.log(picturesContainer);
 };
