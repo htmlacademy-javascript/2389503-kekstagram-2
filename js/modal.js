@@ -18,6 +18,18 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const showModal = (isShown) => {
+  if (isShown) {
+    document.body.classList.add('modal-open');
+    modal.classList.remove('hidden');
+    document.addEventListener('keydown', onDocumentKeydown);
+  } else {
+    modal.classList.add('hidden');
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.body.classList.remove('modal-open');
+  }
+};
+
 const clearListOfComments = () => {
   listOfComments.innerHTML = '';
 };
@@ -25,9 +37,7 @@ const clearListOfComments = () => {
 clearListOfComments();
 
 export const openModal = (id, url, description, likes, comments) => {
-  document.body.classList.add('modal-open');
-  modal.classList.remove('hidden');
-  document.addEventListener('keydown', onDocumentKeydown);
+  showModal(true);
   photoPreview.src = url;
   caption.textContent = description;
   commentCount.classList.add('hidden');
@@ -48,12 +58,7 @@ export const openModal = (id, url, description, likes, comments) => {
 };
 
 const closeModal = () => {
-  // 1. Скрыть окно (Добавить класс hidden)
-  modal.classList.add('hidden');
-  // 2. Удалить обработчики для закрытия (на всяком документе)
-  document.removeEventListener('keydown', onDocumentKeydown);
-  // 3. Прочая логика
-  document.body.classList.remove('modal-open');
+  showModal(false);
 
   clearListOfComments();
 };
