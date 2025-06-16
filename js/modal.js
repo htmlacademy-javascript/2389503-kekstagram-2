@@ -30,14 +30,7 @@ const showModal = (isShown) => {
   }
 };
 
-const renderComments = (id, url, description, likes, comments) => {
-  photoPreview.src = url;
-  caption.textContent = description;
-  commentCount.classList.add('hidden');
-  likesCount.textContent = likes;
-  commentShownCount.textContent = listOfComments.children.length;
-  commentTotalCount.textContent = comments.length;
-  commentsLoader.classList.add('hidden');
+const renderComment = (comments) => {
   comments.forEach((item) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
@@ -47,6 +40,17 @@ const renderComments = (id, url, description, likes, comments) => {
     cloneCommentText.textContent = item.message;
     listOfComments.append(cloneComment);
   });
+};
+
+const renderComments = (id, url, description, likes, comments) => {
+  photoPreview.src = url;
+  caption.textContent = description;
+  commentCount.classList.add('hidden');
+  likesCount.textContent = likes;
+  commentShownCount.textContent = listOfComments.children.length;
+  commentTotalCount.textContent = comments.length;
+  commentsLoader.classList.add('hidden');
+  renderComment(comments);
 };
 
 const clearListOfComments = () => {
