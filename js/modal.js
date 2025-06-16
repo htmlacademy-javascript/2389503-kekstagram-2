@@ -11,11 +11,18 @@ const commentTotalCount = modal.querySelector('.social__comment-total-count');
 const listOfComments = modal.querySelector('.social__comments');
 const comment = modal.querySelector('.social__comment');
 const commentsLoader = modal.querySelector('.social__comments-loader');
+
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
   }
 };
+
+const clearListOfComments = () => {
+  listOfComments.innerHTML = '';
+};
+
+clearListOfComments();
 
 export const openModal = (id, url, description, likes, comments) => {
   document.body.classList.add('modal-open');
@@ -37,6 +44,7 @@ export const openModal = (id, url, description, likes, comments) => {
     cloneCommentText.textContent = comments[i].message;
     listOfComments.append(cloneComment);
   }
+
 };
 
 const closeModal = () => {
@@ -46,6 +54,8 @@ const closeModal = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
   // 3. Прочая логика
   document.body.classList.remove('modal-open');
+
+  clearListOfComments();
 };
 
 // Подключаю обработчик клика на кнопку закрытия
