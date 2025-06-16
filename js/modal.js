@@ -30,6 +30,25 @@ const showModal = (isShown) => {
   }
 };
 
+const renderComments = (id, url, description, likes, comments) => {
+  photoPreview.src = url;
+  caption.textContent = description;
+  commentCount.classList.add('hidden');
+  likesCount.textContent = likes;
+  commentShownCount.textContent = listOfComments.children.length;
+  commentTotalCount.textContent = comments.length;
+  commentsLoader.classList.add('hidden');
+  comments.forEach((item) => {
+    const cloneComment = comment.cloneNode(true);
+    const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
+    const cloneCommentText = cloneComment.querySelector('.social__text');
+    cloneCommentAvatar.src = item.avatar;
+    cloneCommentAvatar.alt = item.name;
+    cloneCommentText.textContent = item.message;
+    listOfComments.append(cloneComment);
+  });
+};
+
 const clearListOfComments = () => {
   listOfComments.innerHTML = '';
 };
@@ -38,23 +57,7 @@ clearListOfComments();
 
 export const openModal = (id, url, description, likes, comments) => {
   showModal(true);
-  photoPreview.src = url;
-  caption.textContent = description;
-  commentCount.classList.add('hidden');
-  likesCount.textContent = likes;
-  commentShownCount.textContent = listOfComments.children.length;
-  commentTotalCount.textContent = comments.length;
-  commentsLoader.classList.add('hidden');
-  for (let i = 0; i < comments.length; i++) {
-    const cloneComment = comment.cloneNode(true);
-    const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
-    const cloneCommentText = cloneComment.querySelector('.social__text');
-    cloneCommentAvatar.src = comments[i].avatar;
-    cloneCommentAvatar.alt = comments[i].name;
-    cloneCommentText.textContent = comments[i].message;
-    listOfComments.append(cloneComment);
-  }
-
+  renderComments(id, url, description, likes, comments);
 };
 
 const closeModal = () => {
