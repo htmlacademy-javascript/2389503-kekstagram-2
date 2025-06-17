@@ -36,8 +36,7 @@ picturesContainer.addEventListener('click', (evt) => {
   if(picture) {
     const findPicture = localPhotos.find((item) => item.id === pictureId
     );
-    console.log(findPicture);
-    openModal();
-
+    const { id, url, description, likes, comments } = findPicture;
+    openModal(id, url, description, likes, comments);
   }
 });
