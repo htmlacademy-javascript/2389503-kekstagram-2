@@ -7,11 +7,14 @@ const photoTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
+let localPhotos;
+
 export const renderCards = (photos) => {
   // Создаю коробочку, в которую я буду складывать отображённые фотографии
   const similarListFragment = document.createDocumentFragment();
+  localPhotos = [...photos];
 
-  photos.forEach(({ id, url, description, likes, comments }) => {
+  localPhotos.forEach(({ id, url, description, likes, comments }) => {
     const cloneItem = photoTemplate.cloneNode(true);
     const pictureImage = cloneItem.querySelector('.picture__img');
     const pictureLikes = cloneItem.querySelector('.picture__likes');
@@ -21,10 +24,6 @@ export const renderCards = (photos) => {
     pictureImage.alt = description;
     pictureLikes.textContent = likes;
     pictureComments.textContent = comments.length;
-    // cloneItem.addEventListener('click', (evt) => {
-    //   evt.preventDefault();
-    //   openModal(id, url, description, likes, comments);
-    // });
     similarListFragment.append(cloneItem);
   });
 
@@ -32,7 +31,13 @@ export const renderCards = (photos) => {
 };
 
 picturesContainer.addEventListener('click', (evt) => {
-  if(evt.target.closest('.picture')) {
+  const picture = evt.target.closest('.picture');
+  const pictureId = picture.dataset.id;
+  if(picture) {
+    localPhotos.find((item) => {
+      console.log(item.id === pictureId);
+    });
+    openModal();
 
   }
 });
