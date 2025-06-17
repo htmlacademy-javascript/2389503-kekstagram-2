@@ -21,14 +21,18 @@ export const renderCards = (photos) => {
     pictureImage.alt = description;
     pictureLikes.textContent = likes;
     pictureComments.textContent = comments.length;
-    cloneItem.addEventListener('click', (evt) => {
-      evt.preventDefault();
-      openModal(id, url, description, likes, comments);
-    });
-    similarListFragment.appendChild(cloneItem);
+    // cloneItem.addEventListener('click', (evt) => {
+    //   evt.preventDefault();
+    //   openModal(id, url, description, likes, comments);
+    // });
+    similarListFragment.append(cloneItem);
   });
 
-  picturesContainer.appendChild(similarListFragment);
+  picturesContainer.append(similarListFragment);
 };
 
-console.log(picturesContainer);
+picturesContainer.addEventListener('click', (evt) => {
+  if(evt.target.closest('.picture')) {
+
+  }
+});
