@@ -32,11 +32,11 @@ export const renderCards = (photos) => {
 
 picturesContainer.addEventListener('click', (evt) => {
   const picture = evt.target.closest('.picture');
-  const pictureId = picture.dataset.id;
+  const pictureId = Number(picture.dataset.id);
   if(picture) {
-    localPhotos.find((item) => {
-      console.log(item.id === pictureId);
-    });
+    const findPicture = localPhotos.find((item) => item.id === pictureId
+    );
+    console.log(findPicture);
     openModal();
 
   }
