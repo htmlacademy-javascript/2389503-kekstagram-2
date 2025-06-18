@@ -46,7 +46,7 @@ const renderComments = (comments) => {
   listOfComments.append(fragment);
 };
 
-const renderModal = ({ id, url, description, likes, comments }) => {
+const renderModal = ({ url, description, likes, comments}) => {
   photoPreview.src = url;
   caption.textContent = description;
   commentCount.classList.add('hidden');
