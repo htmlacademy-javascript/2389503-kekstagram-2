@@ -40,16 +40,22 @@ const renderComments = (comments) => {
     cloneCommentText.textContent = message;
     listOfComments.append(cloneComment);
   });
+
 };
 
 const renderModal = (id, url, description, likes, comments) => {
   photoPreview.src = url;
   caption.textContent = description;
   likesCount.textContent = likes;
-  commentShownCount.textContent = listOfComments.children.length;
   commentTotalCount.textContent = comments.length;
-
   renderComments(comments);
+  commentShownCount.textContent = listOfComments.children.length;
+  // При открытии модального окна должно быть отображено 5 комментариев
+  commentsLoader.addEventListener('click', () => {
+    console.log(`Количество отображённых комментариев - ${commentShownCount.textContent} из ${commentTotalCount.textContent}`);
+
+
+  });
 };
 
 const clearListOfComments = () => {
