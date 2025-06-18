@@ -31,6 +31,9 @@ const showModal = (isShown = true) => {
 };
 
 const renderComments = (comments) => {
+
+  const fragment = document.createDocumentFragment();
+
   comments.forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
@@ -38,11 +41,12 @@ const renderComments = (comments) => {
     cloneCommentAvatar.src = avatar;
     cloneCommentAvatar.alt = name;
     cloneCommentText.textContent = message;
-    listOfComments.append(cloneComment);
+    fragment.append(cloneComment);
   });
+  listOfComments.append(fragment);
 };
 
-const renderModal = (id, url, description, likes, comments) => {
+const renderModal = ({ id, url, description, likes, comments }) => {
   photoPreview.src = url;
   caption.textContent = description;
   commentCount.classList.add('hidden');
@@ -62,7 +66,7 @@ clearListOfComments();
 
 export const openModal = ({ id, url, description, likes, comments }) => {
   showModal();
-  renderModal(id, url, description, likes, comments);
+  renderModal({ id, url, description, likes, comments });
 };
 
 const closeModal = () => {
