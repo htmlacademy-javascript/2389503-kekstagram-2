@@ -45,11 +45,9 @@ const renderComments = (comments) => {
 const renderModal = (id, url, description, likes, comments) => {
   photoPreview.src = url;
   caption.textContent = description;
-  commentCount.classList.add('hidden');
   likesCount.textContent = likes;
   commentShownCount.textContent = listOfComments.children.length;
   commentTotalCount.textContent = comments.length;
-  commentsLoader.classList.add('hidden');
 
   renderComments(comments);
 };
