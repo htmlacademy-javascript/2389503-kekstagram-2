@@ -64,9 +64,9 @@ const clearListOfComments = () => {
 
 clearListOfComments();
 
-export const openModal = ({ id, url, description, likes, comments }) => {
+export const openModal = (currentPhoto) => {
   showModal();
-  renderModal({ id, url, description, likes, comments });
+  renderModal(currentPhoto);
 };
 
 const closeModal = () => {
