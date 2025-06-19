@@ -34,8 +34,7 @@ picturesContainer.addEventListener('click', (evt) => {
   const picture = evt.target.closest('.picture');
   const pictureId = Number(picture.dataset.id);
   if(picture) {
-    const findPicture = localPhotos.find((item) => item.id === pictureId
-    );
+    const findPicture = localPhotos.find((item) => item.id === pictureId);
     openModal(findPicture);
   }
 });
