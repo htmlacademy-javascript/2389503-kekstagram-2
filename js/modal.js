@@ -31,6 +31,9 @@ const showModal = (isShown = true) => {
 };
 
 const renderComments = (comments) => {
+
+  const fragment = document.createDocumentFragment();
+
   comments.forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
@@ -38,24 +41,21 @@ const renderComments = (comments) => {
     cloneCommentAvatar.src = avatar;
     cloneCommentAvatar.alt = name;
     cloneCommentText.textContent = message;
-    listOfComments.append(cloneComment);
+    fragment.append(cloneComment);
   });
-
+  listOfComments.append(fragment);
 };
 
-const renderModal = (id, url, description, likes, comments) => {
+const renderModal = ({ url, description, likes, comments}) => {
   photoPreview.src = url;
   caption.textContent = description;
+  commentCount.classList.add('hidden');
   likesCount.textContent = likes;
-  commentTotalCount.textContent = comments.length;
-  renderComments(comments);
   commentShownCount.textContent = listOfComments.children.length;
-  // При открытии модального окна должно быть отображено 5 комментариев
-  commentsLoader.addEventListener('click', () => {
-    console.log(`Количество отображённых комментариев - ${commentShownCount.textContent} из ${commentTotalCount.textContent}`);
+  commentTotalCount.textContent = comments.length;
+  commentsLoader.classList.add('hidden');
 
-
-  });
+  renderComments(comments);
 };
 
 const clearListOfComments = () => {
@@ -64,9 +64,9 @@ const clearListOfComments = () => {
 
 clearListOfComments();
 
-export const openModal = ({ id, url, description, likes, comments }) => {
+export const openModal = (currentPhoto) => {
   showModal();
-  renderModal(id, url, description, likes, comments);
+  renderModal(currentPhoto);
 };
 
 const closeModal = () => {
