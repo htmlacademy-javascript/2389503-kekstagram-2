@@ -31,10 +31,16 @@ const showModal = (isShown = true) => {
 };
 
 const renderComments = (comments) => {
-
   const fragment = document.createDocumentFragment();
+  // 1. При открытии модального окна должны отображаться первые 5 комментариев, то есть не больше 5 комментариев
+  // Массив с комментариями
+  const arrayOfComments = comments;
+  // Количество отображенных комментариев поумолчанию
+  const defaultRenderedNumberOfComments = arrayOfComments.slice(0, 5);
+  // количество комментариев
+  const numberOfComments = comments.length;
 
-  comments.forEach(({ avatar, name, message }) => {
+  defaultRenderedNumberOfComments.forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
     const cloneCommentText = cloneComment.querySelector('.social__text');
@@ -43,20 +49,28 @@ const renderComments = (comments) => {
     cloneCommentText.textContent = message;
     fragment.append(cloneComment);
   });
+
   listOfComments.append(fragment);
+
+  // 2. Если комментариев меньше пяти, то кнопка commentsLoader скрывается.
+  // 3. При нажатии на кнопку должны появляться следующие 5 комментариев.
+  // 4. Если отображены все комментарии, то кнопка скрывается
 };
+
+commentsLoader.addEventListener('click', () => {
+  console.log('Click!');
+});
 
 const renderModal = ({ url, description, likes, comments}) => {
   photoPreview.src = url;
   caption.textContent = description;
-  commentCount.classList.add('hidden');
   likesCount.textContent = likes;
-  commentShownCount.textContent = listOfComments.children.length;
+  // commentShownCount.textContent = listOfComments.children.length;
   commentTotalCount.textContent = comments.length;
-  commentsLoader.classList.add('hidden');
 
   renderComments(comments);
 };
+
 
 const clearListOfComments = () => {
   listOfComments.innerHTML = '';
