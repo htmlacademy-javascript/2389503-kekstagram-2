@@ -29,18 +29,25 @@ const showModal = (isShown = true) => {
     document.body.classList.remove('modal-open');
   }
 };
+// Данная функция получает на вход массив комментариев
+const func = (arr) => {
+  // 1. При открытии модального окна должны отображаться первые 5 комментариев, то есть не больше 5 комментариев
+  const a = 0;
+  const b = 5;
+
+  const newArr = arr.slice(a, b);
+  if(newArr.length < 5 || newArr.length >= arr.length) {
+    commentsLoader.classList.add('hidden');
+  }
+  return newArr;
+};
 
 const renderComments = (comments) => {
   const fragment = document.createDocumentFragment();
-  // 1. При открытии модального окна должны отображаться первые 5 комментариев, то есть не больше 5 комментариев
-  // Массив с комментариями
-  const arrayOfComments = comments;
-  // Количество отображенных комментариев поумолчанию
-  const defaultRenderedNumberOfComments = arrayOfComments.slice(0, 5);
-  // количество комментариев
-  const numberOfComments = comments.length;
 
-  defaultRenderedNumberOfComments.forEach(({ avatar, name, message }) => {
+  const defaultNumberOfComments = func(comments);
+
+  defaultNumberOfComments.forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
     const cloneCommentText = cloneComment.querySelector('.social__text');
@@ -53,6 +60,9 @@ const renderComments = (comments) => {
   listOfComments.append(fragment);
 
   // 2. Если комментариев меньше пяти, то кнопка commentsLoader скрывается.
+  // if(numberOfComments <= 5) {
+  //   commentsLoader.classList.add('hidden');
+  // }
   // 3. При нажатии на кнопку должны появляться следующие 5 комментариев.
   // 4. Если отображены все комментарии, то кнопка скрывается
 };
