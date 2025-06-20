@@ -32,16 +32,16 @@ const showModal = (isShown = true) => {
 };
 
 
-const renderPartComments = (arr, start = 0, part = 5) => {
-  const partComments = arr.slice(start , part);
+const renderPartComments = (arr, start = 0, end = 5) => {
+  const partComments = arr.slice(start , end);
   return partComments;
 };
 
 const renderComments = (comments) => {
 
   const fragment = document.createDocumentFragment();
-  const initialRenderedComments = renderPartComments(comments, 0, 5);
 
+  const initialRenderedComments = renderPartComments(comments);
   commentShownCount.textContent = initialRenderedComments.length;
 
   if(comments.length <= 5) {
@@ -59,11 +59,8 @@ const renderComments = (comments) => {
   });
 
   listOfComments.append(fragment);
+
 };
-
-commentsLoader.addEventListener('click', () => {
-
-});
 
 const renderModal = ({ url, description, likes, comments}) => {
 
@@ -76,6 +73,30 @@ const renderModal = ({ url, description, likes, comments}) => {
   renderComments(comments);
 };
 
+// Функция для отрисовки следующей части комментариев
+const renderNextPartOfComments = () => {
+  console.log('Отрисовать следующую порцию комментариев');
+};
+
+// Функция которая обновляет статистику
+const refreshStatistics = () => {
+  console.log('Обновить статистику');
+};
+
+// Функция которая отвечает за отображение кнопки
+const showButton = () => {
+  console.log('Прячем или показываем кнопку Загрузить ещё');
+};
+
+commentsLoader.addEventListener('click', () => {
+// На кнопку нажали и у вас будет три действия:
+// 1. Отрисовали следующую порцию комментариев. Либо сколько есть.
+  renderNextPartOfComments();
+  // 2. Далее обновляется статистика.
+  refreshStatistics();
+  // 3.  И принимается решение по кнопке: прятать её или показывать.
+  showButton();
+});
 
 const clearListOfComments = () => {
   listOfComments.innerHTML = '';
