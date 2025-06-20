@@ -19,6 +19,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 const showModal = (isShown = true) => {
+  console.log('Выполняется функция показа модального окна - showModal');
   if (isShown) {
     document.body.classList.add('modal-open');
     modal.classList.remove('hidden');
@@ -29,25 +30,25 @@ const showModal = (isShown = true) => {
     document.body.classList.remove('modal-open');
   }
 };
-// Данная функция получает на вход массив комментариев
-const func = (arr) => {
-  // 1. При открытии модального окна должны отображаться первые 5 комментариев, то есть не больше 5 комментариев
-  const a = 0;
-  const b = 5;
 
-  const newArr = arr.slice(a, b);
-  if(newArr.length < 5 || newArr.length >= arr.length) {
-    commentsLoader.classList.add('hidden');
-  }
-  return newArr;
+
+const renderPartComments = (arr, start = 0, part = 5) => {
+  const partComments = arr.slice(start , part);
+  return partComments;
 };
 
 const renderComments = (comments) => {
+
   const fragment = document.createDocumentFragment();
+  const initialRenderedComments = renderPartComments(comments, 0, 5);
 
-  const defaultNumberOfComments = func(comments);
+  commentShownCount.textContent = initialRenderedComments.length;
 
-  defaultNumberOfComments.forEach(({ avatar, name, message }) => {
+  if(comments.length <= 5) {
+    commentsLoader.classList.add('hidden');
+  }
+
+  initialRenderedComments.forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
     const cloneCommentText = cloneComment.querySelector('.social__text');
@@ -58,20 +59,14 @@ const renderComments = (comments) => {
   });
 
   listOfComments.append(fragment);
-
-  // 2. Если комментариев меньше пяти, то кнопка commentsLoader скрывается.
-  // if(numberOfComments <= 5) {
-  //   commentsLoader.classList.add('hidden');
-  // }
-  // 3. При нажатии на кнопку должны появляться следующие 5 комментариев.
-  // 4. Если отображены все комментарии, то кнопка скрывается
 };
 
 commentsLoader.addEventListener('click', () => {
-  console.log('Click!');
+
 });
 
 const renderModal = ({ url, description, likes, comments}) => {
+
   photoPreview.src = url;
   caption.textContent = description;
   likesCount.textContent = likes;
@@ -90,12 +85,12 @@ clearListOfComments();
 
 export const openModal = (currentPhoto) => {
   showModal();
+
   renderModal(currentPhoto);
 };
 
 const closeModal = () => {
   showModal(false);
-
   clearListOfComments();
 };
 
