@@ -11,6 +11,11 @@ const commentTotalCount = modal.querySelector('.social__comment-total-count');
 const listOfComments = modal.querySelector('.social__comments');
 const comment = modal.querySelector('.social__comment');
 const commentsLoader = modal.querySelector('.social__comments-loader');
+// Выношу переменную в модальную область видимости
+// В ней будут храниться данные для отображения комментариев
+let localComments;
+// Счётчик отображённых комментариев
+let counterOfRenderedComments = 0;
 
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
@@ -19,7 +24,6 @@ const onDocumentKeydown = (evt) => {
 };
 
 const showModal = (isShown = true) => {
-  console.log('Выполняется функция показа модального окна - showModal');
   if (isShown) {
     document.body.classList.add('modal-open');
     modal.classList.remove('hidden');
@@ -34,8 +38,11 @@ const showModal = (isShown = true) => {
 const renderComments = (comments) => {
 
   const fragment = document.createDocumentFragment();
-
-  comments.forEach(({ avatar, name, message }) => {
+  // Делаю копию массива, который я получаю на вход
+  localComments = [...comments];
+  // Использую метод splice, который возвращает "вырезанный" кусочек комментариев
+  // И по нему итерирусь и заполняю комментарии содержимым
+  localComments.splice(0, 5).forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
     const cloneCommentText = cloneComment.querySelector('.social__text');
@@ -43,25 +50,26 @@ const renderComments = (comments) => {
     cloneCommentAvatar.alt = name;
     cloneCommentText.textContent = message;
     fragment.append(cloneComment);
+    // После добавления наполненного данными комментария во фрагмент увеличиваю счётчик на 1
+    counterOfRenderedComments++;
   });
-
+  // Подставляю актуальное значение счётчика отображённых комментариев
+  commentShownCount.textContent = counterOfRenderedComments;
   listOfComments.append(fragment);
-
 };
+
 
 const renderModal = ({ url, description, likes, comments}) => {
 
   photoPreview.src = url;
   caption.textContent = description;
   likesCount.textContent = likes;
-  // commentShownCount.textContent = listOfComments.children.length;
   commentTotalCount.textContent = comments.length;
-
   renderComments(comments);
 };
 
 commentsLoader.addEventListener('click', () => {
-
+  renderComments(localComments);
 });
 
 const clearListOfComments = () => {
@@ -79,6 +87,8 @@ export const openModal = (currentPhoto) => {
 const closeModal = () => {
   showModal(false);
   clearListOfComments();
+  // При закрытии модального окна сбрасываю счётчик до 0
+  counterOfRenderedComments = 0;
 };
 
 // Подключаю обработчик клика на кнопку закрытия
