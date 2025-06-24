@@ -5,7 +5,6 @@ const closeButton = modal.querySelector('.big-picture__cancel');
 const photoPreview = modal.querySelector('.big-picture__img').querySelector('img');
 const caption = modal.querySelector('.social__caption');
 const likesCount = modal.querySelector('.likes-count');
-const commentCount = modal.querySelector('.social__comment-count');
 const commentShownCount = modal.querySelector('.social__comment-shown-count');
 const commentTotalCount = modal.querySelector('.social__comment-total-count');
 const listOfComments = modal.querySelector('.social__comments');
@@ -55,7 +54,19 @@ const renderComments = (comments) => {
   });
   // Подставляю актуальное значение счётчика отображённых комментариев
   commentShownCount.textContent = counterOfRenderedComments;
+
   listOfComments.append(fragment);
+  // Важный момент.
+  // Как мне определить, что показаны все комментарии?
+  // При использовании метода splice я выкусываю кусочек из массива localComments
+  // Соответственно длина входящего массива comments уменьшается на количество элементов,
+  // которое я выкусил
+  // Но я не понимаю почему так происходит
+  if(comments.length > 5) {
+    commentsLoader.classList.remove('hidden');
+  } else {
+    commentsLoader.classList.add('hidden');
+  }
 };
 
 
@@ -66,6 +77,7 @@ const renderModal = ({ url, description, likes, comments}) => {
   likesCount.textContent = likes;
   commentTotalCount.textContent = comments.length;
   renderComments(comments);
+
 };
 
 commentsLoader.addEventListener('click', () => {
@@ -80,7 +92,6 @@ clearListOfComments();
 
 export const openModal = (currentPhoto) => {
   showModal();
-
   renderModal(currentPhoto);
 };
 
