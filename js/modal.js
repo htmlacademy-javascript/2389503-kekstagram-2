@@ -5,7 +5,6 @@ const closeButton = modal.querySelector('.big-picture__cancel');
 const photoPreview = modal.querySelector('.big-picture__img').querySelector('img');
 const caption = modal.querySelector('.social__caption');
 const likesCount = modal.querySelector('.likes-count');
-const commentCount = modal.querySelector('.social__comment-count');
 const commentShownCount = modal.querySelector('.social__comment-shown-count');
 const commentTotalCount = modal.querySelector('.social__comment-total-count');
 const listOfComments = modal.querySelector('.social__comments');
@@ -65,7 +64,6 @@ const renderComments = () => {
 };
 
 commentsLoader.addEventListener('click', () => {
-  console.log('Click!');
   renderComments();
 });
 
