@@ -16,24 +16,6 @@ let localComments;
 // Счётчик отображённых комментариев
 let counterOfRenderedComments = 0;
 
-const onDocumentKeydown = (evt) => {
-  if(isEscapeKey(evt)) {
-    modal.classList.add('hidden');
-  }
-};
-
-const showModal = (isShown = true) => {
-  if (isShown) {
-    document.body.classList.add('modal-open');
-    modal.classList.remove('hidden');
-    document.addEventListener('keydown', onDocumentKeydown);
-  } else {
-    modal.classList.add('hidden');
-    document.removeEventListener('keydown', onDocumentKeydown);
-    document.body.classList.remove('modal-open');
-  }
-};
-
 const renderComments = (comments) => {
 
   const fragment = document.createDocumentFragment();
@@ -62,6 +44,7 @@ const renderComments = (comments) => {
   // Соответственно длина входящего массива comments уменьшается на количество элементов,
   // которое я выкусил
   // Но я не понимаю почему так происходит
+
   if(comments.length > 5) {
     commentsLoader.classList.remove('hidden');
   } else {
@@ -69,15 +52,12 @@ const renderComments = (comments) => {
   }
 };
 
-
 const renderModal = ({ url, description, likes, comments}) => {
-
   photoPreview.src = url;
   caption.textContent = description;
   likesCount.textContent = likes;
   commentTotalCount.textContent = comments.length;
   renderComments(comments);
-
 };
 
 commentsLoader.addEventListener('click', () => {
@@ -88,7 +68,25 @@ const clearListOfComments = () => {
   listOfComments.innerHTML = '';
 };
 
-clearListOfComments();
+const onDocumentKeydown = (evt) => {
+  if(isEscapeKey(evt)) {
+    modal.classList.add('hidden');
+    clearListOfComments();
+    counterOfRenderedComments = 0;
+  }
+};
+
+const showModal = (isShown = true) => {
+  if (isShown) {
+    document.body.classList.add('modal-open');
+    modal.classList.remove('hidden');
+    document.addEventListener('keydown', onDocumentKeydown);
+  } else {
+    modal.classList.add('hidden');
+    document.removeEventListener('keydown', onDocumentKeydown);
+    document.body.classList.remove('modal-open');
+  }
+};
 
 export const openModal = (currentPhoto) => {
   showModal();
