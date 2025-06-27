@@ -12,8 +12,11 @@ const listOfComments = modal.querySelector('.social__comments');
 const comment = modal.querySelector('.social__comment');
 const commentsLoader = modal.querySelector('.social__comments-loader');
 
+let localComments;
+let renderedCommentsCount = 0;
+
 const onDocumentKeydown = (evt) => {
-  if(isEscapeKey(evt)) {
+  if (isEscapeKey(evt)) {
     modal.classList.add('hidden');
   }
 };
@@ -30,11 +33,22 @@ const showModal = (isShown = true) => {
   }
 };
 
-const renderComments = (comments) => {
+const renderStatistic = () => {
+  commentShownCount.textContent = renderedCommentsCount;
+};
 
+const renderLoader = () => {
+  if(localComments.length){
+    commentsLoader.classList.remove('hidden');
+  }else{
+    commentsLoader.classList.add('hidden');
+  }
+};
+
+const renderComments = () => {
   const fragment = document.createDocumentFragment();
 
-  comments.forEach(({ avatar, name, message }) => {
+  localComments.splice(0, 5).forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
     const cloneCommentText = cloneComment.querySelector('.social__text');
@@ -42,21 +56,29 @@ const renderComments = (comments) => {
     cloneCommentAvatar.alt = name;
     cloneCommentText.textContent = message;
     fragment.append(cloneComment);
+    renderedCommentsCount++;
   });
+
   listOfComments.append(fragment);
+  renderStatistic();
+  renderLoader();
 };
 
-const renderModal = ({ url, description, likes, comments}) => {
+commentsLoader.addEventListener('click', () => {
+  console.log('Click!');
+  renderComments();
+});
+
+const renderModal = ({ url, description, likes, comments }) => {
   photoPreview.src = url;
   caption.textContent = description;
-  commentCount.classList.add('hidden');
   likesCount.textContent = likes;
-  commentShownCount.textContent = listOfComments.children.length;
   commentTotalCount.textContent = comments.length;
-  commentsLoader.classList.add('hidden');
-
-  renderComments(comments);
+  localComments = [...comments];
+  renderedCommentsCount = 0;
+  renderComments();
 };
+
 
 const clearListOfComments = () => {
   listOfComments.innerHTML = '';
@@ -76,7 +98,7 @@ const closeModal = () => {
 };
 
 // Подключаю обработчик клика на кнопку закрытия
-closeButton.addEventListener('click', ()=> {
+closeButton.addEventListener('click', () => {
   // При клике модальное окно закрывается
   closeModal();
 });
