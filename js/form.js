@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util';
 const uploadForm = document.querySelector('.img-upload__form');
-const imgUploadField = uploadForm.querySelector('.img-upload__input');
+const uploadField = uploadForm.querySelector('.img-upload__input');
 const modal = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
 
@@ -22,11 +22,11 @@ const showModal = (isShown = true) => {
   }
 };
 
-const onImgUploadFieldChange = () => {
+const onUploadFieldChange = () => {
   showModal(true);
 };
 
-imgUploadField.addEventListener('change', onImgUploadFieldChange);
+uploadField.addEventListener('change', onUploadFieldChange);
 
 closeButton.addEventListener('click', () => {
   showModal(false);
