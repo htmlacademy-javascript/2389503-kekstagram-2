@@ -46,7 +46,7 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
-const validateHashtagsField = (value) => {
+const validateNameHashtagsField = (value) => {
   // введён невалидный хэштег
   const regexp = /^#[a-zа-яё0-9]{1,19}$/i;
   // Разбиваю строку на хэштеги с помощью шаблона " " - пробела и помещаю из в массив
@@ -56,7 +56,14 @@ const validateHashtagsField = (value) => {
   return hashtags.every((item) => regexp.test(item));
 };
 
-pristine.addValidator(hashtagsField, validateHashtagsField, 'Введён невалидный хэштег');
+pristine.addValidator(hashtagsField, validateNameHashtagsField, 'Введён невалидный хэштег');
+
+const validateNumberOfHashtags = (value) => {
+  const hashtags = value.split(' ');
+  return hashtags.length <= 5;
+};
+
+pristine.addValidator(hashtagsField, validateNumberOfHashtags, 'превышено количество хэштегов');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
