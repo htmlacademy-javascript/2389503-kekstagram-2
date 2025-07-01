@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-
+import './form.js';
 const modal = document.querySelector('.big-picture');
 const closeButton = modal.querySelector('.big-picture__cancel');
 const photoPreview = modal.querySelector('.big-picture__img').querySelector('img');
