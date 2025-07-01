@@ -50,20 +50,27 @@ const validateNameHashtagsField = (value) => {
   // введён невалидный хэштег
   const regexp = /^#[a-zа-яё0-9]{1,19}$/i;
   // Разбиваю строку на хэштеги с помощью шаблона " " - пробела и помещаю из в массив
-  const hashtags = value.split(' ');
+  const array = value.split(' ');
   // Итерируюсь по полученному массиву с хэштэгами и проверяю соответствуют ли все хэштеги regexp - ругулярному выражению
   // Если хотя бы один хэштег не соответствует regexp, то поле не проходит валидацию
-  return hashtags.every((item) => regexp.test(item));
+  return array.every((item) => regexp.test(item));
 };
 
 pristine.addValidator(hashtagsField, validateNameHashtagsField, 'Введён невалидный хэштег');
 
 const validateNumberOfHashtags = (value) => {
-  const hashtags = value.split(' ');
-  return hashtags.length <= 5;
+  const array = value.split(' ');
+  return array.length <= 5;
 };
 
-pristine.addValidator(hashtagsField, validateNumberOfHashtags, 'превышено количество хэштегов');
+pristine.addValidator(hashtagsField, validateNumberOfHashtags, 'Превышено количество хэштегов');
+
+const validateRepeatingHashtags = (value) => {
+  const array = value.split(' ');
+
+};
+
+pristine.addValidator(hashtagsField, validateRepeatingHashtags, 'Хэштеги повторяются');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
