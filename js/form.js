@@ -30,4 +30,5 @@ uploadField.addEventListener('change', onUploadFieldChange);
 
 closeButton.addEventListener('click', () => {
   showModal(false);
+  uploadField.value = '';
 });
