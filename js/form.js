@@ -7,8 +7,6 @@ const closeButton = uploadForm.querySelector('.img-upload__cancel');
 // const zoomInButton = uploadForm.querySelector('.scale__control--bigger');
 // const scaleControlInput = uploadForm.querySelector('.scale__control--value');
 
-new Pristine(uploadForm);
-
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
@@ -36,4 +34,11 @@ uploadField.addEventListener('change', onUploadFieldChange);
 closeButton.addEventListener('click', () => {
   showModal(false);
   uploadField.value = '';
+});
+
+const pristine = new Pristine(uploadForm);
+
+uploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  pristine.validate();
 });
