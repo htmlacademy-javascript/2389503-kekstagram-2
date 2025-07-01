@@ -36,7 +36,14 @@ closeButton.addEventListener('click', () => {
   uploadField.value = '';
 });
 
-const pristine = new Pristine(uploadForm);
+const pristine = new Pristine(uploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorClass: 'has-danger',
+  successClass: 'has-success',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__field-wrapper--error',
+});
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
