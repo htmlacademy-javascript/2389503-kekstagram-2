@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util';
+import { REGEXP } from './constants';
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
 const modal = uploadForm.querySelector('.img-upload__overlay');
@@ -46,21 +47,31 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
+const getHashtags = (value) => value
+  .toLowerCase()
+  .split(' ')
+  .filter((item) => item.length);
+
 const validateNameHashtagsField = (value) => {
+  if(!value.trim().length) {
+    return true;
+  }
   // введён невалидный хэштег
-  const regexp = /^#[a-zа-яё0-9]{1,19}$/i;
   // Разбиваю строку на хэштеги с помощью шаблона " " - пробела и помещаю в массив
-  const array = value.split(' ');
+  const hashtags = getHashtags(value);
   // Итерируюсь по полученному массиву с хэштэгами и проверяю соответствуют ли все хэштеги regexp - ругулярному выражению
   // Если хотя бы один хэштег не соответствует regexp, то поле не проходит валидацию
-  return array.every((item) => regexp.test(item));
+  return hashtags.every((item) => REGEXP.test(item));
 };
 
 pristine.addValidator(hashtagsField, validateNameHashtagsField, 'Введён невалидный хэштег');
 
 const validateNumberOfHashtags = (value) => {
-  const array = value.split(' ');
-  return array.length <= 5;
+  if(!value.trim().length) {
+    return true;
+  }
+  const hashtags = getHashtags(value);
+  return hashtags.length <= 5;
 };
 
 pristine.addValidator(hashtagsField, validateNumberOfHashtags, 'Превышено количество хэштегов');
