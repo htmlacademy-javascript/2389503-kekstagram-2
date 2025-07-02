@@ -51,7 +51,7 @@ const getHashtags = (value) => value
   .toLowerCase()
   .split(' ')
   .filter((item) => item.length);
-
+// Функция, которая определяет является ли строка пустой, то есть у нас нет длины строки
 const isEmptyString = (value) => !value.trim().length;
 
 const validateNameHashtagsField = (value) => {
