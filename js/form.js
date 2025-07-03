@@ -94,10 +94,9 @@ pristine.addValidator(hashtagsField, validateCountHashtags, getCountHashtagsErro
 const validateUniquenessHashtags = (value) => {
   // Получаю "очищенный" массив со строками
   const hashtags = getHashtags(value);
+  const uniqueHashtags = [... new Set(hashtags)];
 
-  const duplicates = hashtags.filter((item, index, array) => array.indexOf(item) !== index);
-
-  return !duplicates.length;
+  return hashtags.length === uniqueHashtags.length;
 };
 // Вадиция уникальности имён хэштегов
 pristine.addValidator(hashtagsField, validateUniquenessHashtags, 'Хэштеги повторяются');
