@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util';
+import { isEscapeKey, isEmptyString } from './util';
 import { REGEXP, MAX_COUNT_HASHTAGS } from './constants';
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
@@ -51,16 +51,13 @@ const getHashtags = (value) => value
   .toLowerCase()
   .split(' ')
   .filter((item) => item.length);
-// Функция, которая определяет является ли строка пустой, то есть у нас нет длины строки
-const isEmptyString = (value) => !value.trim().length;
 
+// Функция-обработчик - определяет правильность ввода хэштега
 const validateNameHashtagsField = (value) => {
-  // введён невалидный хэштег
   // Если у нас строка пустая или одни пробелы то валидацию проходим
   if(isEmptyString(value)) {
     return true;
   }
-
   // Разбиваю строку на хэштеги с помощью шаблона " " - пробела и помещаю в массив
   const hashtags = getHashtags(value);
   // Итерируюсь по полученному массиву с хэштэгами и проверяю соответствуют ли все хэштеги regexp - ругулярному выражению
