@@ -32,6 +32,7 @@ export const renderCards = (photos) => {
 
 picturesContainer.addEventListener('click', (evt) => {
   const picture = evt.target.closest('.picture');
+
   if(picture) {
     const pictureId = Number(picture.dataset.id);
     const findPicture = localPhotos.find((item) => item.id === pictureId);

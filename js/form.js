@@ -71,28 +71,36 @@ const validateNameHashtagsField = (value) => {
   // Если хотя бы один строчный элемент не соответствует regexp, то поле не проходит валидацию
   return hashtags.every((item) => REGEXP.test(item));
 };
-
-pristine.addValidator(hashtagsField, validateNameHashtagsField, 'Введён невалидный хэштег');
+// Получаем ошибку, если не проходим валидацию именования хэштега
+const getNameHashtagsErrorMessage = () => 'Хэштег состоит из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи';
+// Валидация именования хэштега
+pristine.addValidator(hashtagsField, validateNameHashtagsField, getNameHashtagsErrorMessage);
 
 const validateCountHashtags = (value) => {
   // Если у нас строка пустая или одни пробелы то валидацию проходим
   if(isEmptyString(value)) {
     return true;
   }
+  // Получаю "очищенный" массив со строками
   const hashtags = getHashtags(value);
+  // Количество хэштегов не более MAX_COUNT_HASHTAGS
   return hashtags.length <= MAX_COUNT_HASHTAGS;
 };
-
+// Если количество хэштегов превышено, то выводится данное сообщение об ошибке
 const getCountHashtagsErrorMessage = () => `Максимальное допустимое количество хэштегов ${MAX_COUNT_HASHTAGS}`;
-
+// Валидация количества хэштегов
 pristine.addValidator(hashtagsField, validateCountHashtags, getCountHashtagsErrorMessage);
 
-// const validateRepeatingHashtags = (value) => {
-//   const array = value.split(' ');
+const validateUniquenessHashtags = (value) => {
+  // Получаю "очищенный" массив со строками
+  const hashtags = getHashtags(value);
 
-// };
+  const duplicates = hashtags.filter((item, index, array) => array.indexOf(item) !== index);
 
-// pristine.addValidator(hashtagsField, validateRepeatingHashtags, 'Хэштеги повторяются');
+  return !duplicates.length;
+};
+// Вадиция уникальности имён хэштегов
+pristine.addValidator(hashtagsField, validateUniquenessHashtags, 'Хэштеги повторяются');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
