@@ -1,10 +1,13 @@
 import { isEscapeKey, isEmptyString } from './util';
-import { REGEXP, MAX_COUNT_HASHTAGS } from './constants';
+import { REGEXP, MAX_COUNT_HASHTAGS, COMMENT_LENGTH } from './constants';
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
 const modal = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
+// Нахожу поле для комментария в DOM
+const textDescriptionField = uploadForm.querySelector('.text__description');
+console.log(textDescriptionField);
 // const zoomOutButton = uploadForm.querySelector('.scale__control--smaller');
 // const zoomInButton = uploadForm.querySelector('.scale__control--bigger');
 // const scaleControlInput = uploadForm.querySelector('.scale__control--value');
@@ -100,6 +103,19 @@ const validateUniquenessHashtags = (value) => {
 };
 // Вадиция уникальности имён хэштегов
 pristine.addValidator(hashtagsField, validateUniquenessHashtags, 'Хэштеги повторяются');
+
+const getTextDescriptionErrorMessage = () => `Превышено допустимое количество символов: не более ${COMMENT_LENGTH}`;
+
+const validateTextDescriptionField = (value) => {
+  // Если у нас строка пустая или одни пробелы то валидацию проходим
+  if(isEmptyString(value)) {
+    return true;
+  }
+  return value.length <= COMMENT_LENGTH;
+};
+
+// Валидация длины комментария, не больше 140 символов
+pristine.addValidator(textDescriptionField, validateTextDescriptionField, getTextDescriptionErrorMessage);
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
