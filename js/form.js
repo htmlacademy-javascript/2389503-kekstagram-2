@@ -15,6 +15,14 @@ const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
     uploadField.value = '';
+    hashtagsField.value = '';
+    textDescriptionField.value = '';
+  }
+};
+
+const onFocusFieldKeydown = (evt) => {
+  if(isEscapeKey(evt)) {
+    evt.stopPropagation();
   }
 };
 
@@ -23,10 +31,14 @@ const showModal = (isShown = true) => {
     modal.classList.remove('hidden');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onDocumentKeydown);
+    hashtagsField.addEventListener('keydown', onFocusFieldKeydown);
+    textDescriptionField.addEventListener('keydown', onFocusFieldKeydown);
   } else {
     modal.classList.add('hidden');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onDocumentKeydown);
+    hashtagsField.removeEventListener('keydown', onFocusFieldKeydown);
+    textDescriptionField.removeEventListener('keydown', onFocusFieldKeydown);
   }
 };
 
@@ -35,6 +47,7 @@ const onUploadFieldChange = () => {
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
+
 
 closeButton.addEventListener('click', () => {
   showModal(false);
