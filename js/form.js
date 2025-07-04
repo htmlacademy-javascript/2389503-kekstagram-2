@@ -7,7 +7,6 @@ const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 // Нахожу поле для комментария в DOM
 const textDescriptionField = uploadForm.querySelector('.text__description');
-console.log(textDescriptionField);
 // const zoomOutButton = uploadForm.querySelector('.scale__control--smaller');
 // const zoomInButton = uploadForm.querySelector('.scale__control--bigger');
 // const scaleControlInput = uploadForm.querySelector('.scale__control--value');
@@ -15,6 +14,7 @@ console.log(textDescriptionField);
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
+    uploadField.value = '';
   }
 };
 
@@ -118,7 +118,8 @@ const validateTextDescriptionField = (value) => {
 pristine.addValidator(textDescriptionField, validateTextDescriptionField, getTextDescriptionErrorMessage);
 
 uploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  if(!pristine.validate()) {
+    evt.preventDefault();
+  }
 });
 
