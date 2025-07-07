@@ -4,3 +4,6 @@ export const COMMENT_LENGTH = 140;
 export const COMMENTS_PORTION = 5;
 export const START_VALUE_COUNTER = 0;
 export const START = 0;
+export const minScaleValue = 0.25;
+export const maxScaleValue = 1;
+export const stepScaleValue = 0.25;
