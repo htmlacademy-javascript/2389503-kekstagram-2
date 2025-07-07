@@ -1,7 +1,7 @@
 import { uploadForm } from './form';
 import { minScaleValue, maxScaleValue, stepScaleValue } from './constants';
 
-const imgPreview = uploadForm.querySelector('.img-upload__preview') ;
+export const imgPreview = uploadForm.querySelector('.img-upload__preview') ;
 const zoomOutButton = uploadForm.querySelector('.scale__control--smaller');
 const zoomInButton = uploadForm.querySelector('.scale__control--bigger');
 const scaleControlInput = uploadForm.querySelector('.scale__control--value');
