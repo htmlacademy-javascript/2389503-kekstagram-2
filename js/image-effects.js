@@ -14,8 +14,9 @@ const showSlider = (isShown = true) => {
     sliderContainer.classList.add('hidden');
     slider.classList.add('hidden');
   }
-
 };
+
+showSlider(false);
 
 effects.forEach((item) => {
   item.addEventListener('change', () => {
