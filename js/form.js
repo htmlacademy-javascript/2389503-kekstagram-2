@@ -1,6 +1,7 @@
-import { isEscapeKey } from './util';
+import { resetScale } from './scaling-image.js';
+import { isEscapeKey } from './util.js';
 
-export const uploadForm = document.querySelector('.img-upload__form');
+const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
 const modal = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
@@ -27,24 +28,23 @@ const onFocusFieldKeydown = (evt) => {
   }
 };
 
-modal.classList.remove('hidden');
-document.body.classList.add('modal-open');
+const showModal = (isShown = true) => {
+  if (isShown) {
+    modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', onDocumentKeydown);
+    hashtagsField.addEventListener('keydown', onFocusFieldKeydown);
+    textDescriptionField.addEventListener('keydown', onFocusFieldKeydown);
+  } else {
+    modal.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onDocumentKeydown);
+    hashtagsField.removeEventListener('keydown', onFocusFieldKeydown);
+    textDescriptionField.removeEventListener('keydown', onFocusFieldKeydown);
 
-// const showModal = (isShown = true) => {
-//   if (isShown) {
-//     modal.classList.remove('hidden');
-//     document.body.classList.add('modal-open');
-//     document.addEventListener('keydown', onDocumentKeydown);
-//     hashtagsField.addEventListener('keydown', onFocusFieldKeydown);
-//     textDescriptionField.addEventListener('keydown', onFocusFieldKeydown);
-//   } else {
-//     modal.classList.add('hidden');
-//     document.body.classList.remove('modal-open');
-//     document.removeEventListener('keydown', onDocumentKeydown);
-//     hashtagsField.removeEventListener('keydown', onFocusFieldKeydown);
-//     textDescriptionField.removeEventListener('keydown', onFocusFieldKeydown);
-//   }
-// };
+    // resetScale();
+  }
+};
 
 const onUploadFieldChange = () => {
   showModal(true);

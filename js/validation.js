@@ -1,6 +1,9 @@
-import { isEmptyString } from './util';
-import { REGEXP, MAX_COUNT_HASHTAGS, COMMENT_LENGTH } from './constants';
-import { uploadForm, hashtagsField, textDescriptionField } from './form';
+import { isEmptyString } from './util.js';
+import { REGEXP, MAX_COUNT_HASHTAGS, COMMENT_LENGTH } from './constants.js';
+import { hashtagsField, textDescriptionField } from './form.js';
+
+const uploadForm = document.querySelector('.img-upload__overlay');
+
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',

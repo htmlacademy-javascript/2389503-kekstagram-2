@@ -1,4 +1,4 @@
-import { openModal } from './modal';
+import { openModal } from './modal.js';
 // Нахожу контейнер для изображений от других пользователей
 const picturesContainer = document.querySelector('.pictures');
 

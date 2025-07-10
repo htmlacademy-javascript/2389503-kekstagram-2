@@ -1,33 +1,40 @@
-import { uploadForm } from './form';
-import { minScaleValue, maxScaleValue, stepScaleValue } from './constants';
+import { Scale, SCALE_FACTOR } from './constants.js';
 
-export const imgPreview = uploadForm.querySelector('.img-upload__preview') ;
+const uploadForm = document.querySelector('.img-upload__overlay');
+const imgPreview = uploadForm.querySelector('.img-upload__preview img');
 const zoomOutButton = uploadForm.querySelector('.scale__control--smaller');
 const zoomInButton = uploadForm.querySelector('.scale__control--bigger');
 const scaleControlInput = uploadForm.querySelector('.scale__control--value');
 
-let scaleValue = maxScaleValue;
+let scaleValue = Scale.MAX;
+
+const renderScale = () => {
+  imgPreview.style.transform = `scale(${scaleValue * SCALE_FACTOR})`;
+  scaleControlInput.value = `${scaleValue}%`;
+
+};
 
 const increaseScaleValue = () => {
-  if(scaleValue > minScaleValue) {
-    imgPreview.style.transform = `scale(${scaleValue - stepScaleValue})`;
-    scaleValue -= stepScaleValue;
-    scaleControlInput.value = `${scaleValue * 100}%`;
-  }
+  scaleValue = Math.min(scaleValue + Scale.STEP, Scale.MAX);
+  renderScale();
 };
 
 const decreaseScaleValue = () => {
-  if(scaleValue < maxScaleValue) {
-    imgPreview.style.transform = `scale(${scaleValue + stepScaleValue})`;
-    scaleValue += stepScaleValue;
-    scaleControlInput.value = `${scaleValue * 100}%`;
-  }
+  scaleValue = Math.max(scaleValue - Scale.STEP, Scale.MIN);
+  renderScale();
 };
 
 zoomOutButton.addEventListener('click', () => {
-  increaseScaleValue();
+  decreaseScaleValue();
 });
 
 zoomInButton.addEventListener('click', () => {
-  decreaseScaleValue();
+  increaseScaleValue();
 });
+
+export const resetScale = () => {
+  scaleValue = Scale.MAX;
+  renderScale();
+};
+
+resetScale();

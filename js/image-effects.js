@@ -1,18 +1,31 @@
-import { uploadForm } from './form';
-import { imgPreview } from './scaling-image';
-
+const uploadForm = document.querySelector('.img-upload__overlay');
+const imgPreview = uploadForm.querySelector('.img-upload__preview img');
 
 const effects = uploadForm.querySelectorAll('.effects__radio');
 const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
-const slider = uploadForm.querySelector('.effect-level__slider');
+// 1. Находим элемент, в котором мы будем отрисовывать слайдер
+const sliderElement = uploadForm.querySelector('.effect-level__slider');
+// 2. Мы передали `noUiSlider` элемент, в который просим отрисовать слайдер, а также минимальное и максимальное значение и шаг.
+noUiSlider.create(sliderElement, {
+  range : {
+    min: 0,
+    max: 100,
+  },
+  start: 80,
+  step: 1,
+  connect: 'lower',
+});
+
+// 3. Добавим слайдеру слушатель события `update`, которое будет вызвано при изменении положения слайдера, и выводить в консоль параметры колбэка.
+sliderElement.noUiSlider.on('update',(...rest) => console.log(rest));
 
 const showSlider = (isShown = true) => {
   if(isShown) {
     sliderContainer.classList.remove('hidden');
-    slider.classList.remove('hidden');
+    sliderElement.classList.remove('hidden');
   } else {
     sliderContainer.classList.add('hidden');
-    slider.classList.add('hidden');
+    sliderElement.classList.add('hidden');
   }
 };
 
