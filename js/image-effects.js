@@ -31,9 +31,12 @@ const showSlider = (isShown = true) => {
 
 
 effectsContainer.addEventListener('change', ({ target }) => {
-  console.log(target.value);
+
   const { slider } = EffectsSettings[target.value];
+  console.log(slider);
   const { style, units } = EffectsSettings[target.value];
+  console.log(style);
+  console.log(units);
   imgPreview.style.filter = `${style}(${slider.range.max}${units})`;
 
 });

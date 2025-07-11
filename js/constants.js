@@ -13,7 +13,7 @@ export const Scale = {
 // Для конвертации значений масштаба в проценты
 export const SCALE_FACTOR = 0.01;
 // Для эффектов
-export const EFFECTS = {
+export const Effects = {
   CHROME: 'chrome',
   SEPIA: 'sepia',
   MARVIN: 'marvin',
@@ -24,71 +24,70 @@ export const EFFECTS = {
 
 // Настройки эффектов
 export const EffectsSettings = {
-  [EFFECTS.CHROME] : {
+  [Effects.CHROME] : {
     slider: {
       range: {
         min: 0,
         max: 1,
       },
       step: 0.1,
-      units: '',
-      style: 'grayscale',
     },
+    unit: '',
+    style: 'grayscale',
   },
-  [EFFECTS.SEPIA] : {
+  [Effects.SEPIA] : {
     slider: {
       range: {
         min: 0,
         max: 1,
       },
       step: 0.1,
-      units: '',
-      style: 'invert',
     },
+    unit: '',
+    style: 'sepia',
   },
-  [EFFECTS.MARVIN] : {
+  [Effects.MARVIN] : {
     slider: {
       range: {
         min: 0,
         max: 100,
       },
       step: 1,
-      units: '%',
-      style: 'blur',
     },
+    unit: '%',
+    style: 'invert',
   },
-  [EFFECTS.PHOBOS] : {
+  [Effects.PHOBOS] : {
     slider : {
       range: {
         min: 0,
         max: 3,
       },
       step: 0.1,
-      units: 'px',
-      style: 'grayscale',
     },
+    unit: 'px',
+    style: 'blur',
   },
-  [EFFECTS.HEAT] : {
+  [Effects.HEAT] : {
     slider: {
       range: {
         min: 1,
         max: 3,
       },
       step: 0.1,
-      units: '',
-      style: 'brightness',
     },
+    unit: '',
+    style: 'brightness',
   },
-  [EFFECTS.NONE] : {
+  [Effects.NONE] : {
     slider: {
       range: {
         min: 0,
         max: 1,
       },
       step: 0.1,
-      units: '',
-      style: '',
     },
+    unit: '',
+    style: '',
   },
 };
-
