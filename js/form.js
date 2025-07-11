@@ -1,24 +1,19 @@
 import { resetScale } from './scaling-image.js';
 import { isEscapeKey } from './util.js';
+import { resetValidation } from './validation.js';
+import { resetEffects } from './image-effects.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
+const hashtagsField = uploadForm.querySelector('.text__hashtags');
+const textDescriptionField = uploadForm.querySelector('.text__description');
 const modal = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
-export const hashtagsField = uploadForm.querySelector('.text__hashtags');
-// Нахожу поле для комментария в DOM
-export const textDescriptionField = uploadForm.querySelector('.text__description');
-// Очищает поля
-const clearFields = () => {
-  uploadField.value = '';
-  hashtagsField.value = '';
-  textDescriptionField.value = '';
-};
+
 
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
-    clearFields();
   }
 };
 
@@ -42,7 +37,10 @@ const showModal = (isShown = true) => {
     hashtagsField.removeEventListener('keydown', onFocusFieldKeydown);
     textDescriptionField.removeEventListener('keydown', onFocusFieldKeydown);
 
-    // resetScale();
+    uploadForm.reset();
+    resetScale();
+    resetValidation();
+    resetEffects();
   }
 };
 
@@ -53,7 +51,7 @@ const onUploadFieldChange = () => {
 uploadField.addEventListener('change', onUploadFieldChange);
 
 
-closeButton.addEventListener('click', () => {
+closeButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
   showModal(false);
-  clearFields();
 });

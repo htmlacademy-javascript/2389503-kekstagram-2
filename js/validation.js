@@ -1,8 +1,9 @@
 import { isEmptyString } from './util.js';
 import { REGEXP, MAX_COUNT_HASHTAGS, COMMENT_LENGTH } from './constants.js';
-import { hashtagsField, textDescriptionField } from './form.js';
 
 const uploadForm = document.querySelector('.img-upload__overlay');
+const hashtagsField = uploadForm.querySelector('.text__hashtags');
+const textDescriptionField = uploadForm.querySelector('.text__description');
 
 
 const pristine = new Pristine(uploadForm, {
@@ -86,3 +87,7 @@ uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export const resetValidation = () => {
+  pristine.reset();
+};

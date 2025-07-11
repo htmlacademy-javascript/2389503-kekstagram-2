@@ -12,3 +12,83 @@ export const Scale = {
 };
 // Для конвертации значений масштаба в проценты
 export const SCALE_FACTOR = 0.01;
+// Для эффектов
+export const EFFECTS = {
+  CHROME: 'chrome',
+  SEPIA: 'sepia',
+  MARVIN: 'marvin',
+  PHOBOS: 'phobos',
+  HEAT: 'heat',
+  NONE: 'none',
+};
+
+// Настройки эффектов
+export const EffectsSettings = {
+  [EFFECTS.CHROME] : {
+    slider: {
+      range: {
+        min: 0,
+        max: 1,
+      },
+      step: 0.1,
+      units: '',
+      style: 'grayscale',
+    },
+  },
+  [EFFECTS.SEPIA] : {
+    slider: {
+      range: {
+        min: 0,
+        max: 1,
+      },
+      step: 0.1,
+      units: '',
+      style: 'invert',
+    },
+  },
+  [EFFECTS.MARVIN] : {
+    slider: {
+      range: {
+        min: 0,
+        max: 100,
+      },
+      step: 1,
+      units: '%',
+      style: 'blur',
+    },
+  },
+  [EFFECTS.PHOBOS] : {
+    slider : {
+      range: {
+        min: 0,
+        max: 3,
+      },
+      step: 0.1,
+      units: 'px',
+      style: 'grayscale',
+    },
+  },
+  [EFFECTS.HEAT] : {
+    slider: {
+      range: {
+        min: 1,
+        max: 3,
+      },
+      step: 0.1,
+      units: '',
+      style: 'brightness',
+    },
+  },
+  [EFFECTS.NONE] : {
+    slider: {
+      range: {
+        min: 0,
+        max: 1,
+      },
+      step: 0.1,
+      units: '',
+      style: '',
+    },
+  },
+};
+
