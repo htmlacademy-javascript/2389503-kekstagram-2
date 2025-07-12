@@ -32,7 +32,7 @@ export const EffectsSettings = {
       },
       step: 0.1,
     },
-    unit: '',
+    units: '',
     style: 'grayscale',
   },
   [Effects.SEPIA] : {
@@ -43,7 +43,7 @@ export const EffectsSettings = {
       },
       step: 0.1,
     },
-    unit: '',
+    units: '',
     style: 'sepia',
   },
   [Effects.MARVIN] : {
@@ -54,7 +54,7 @@ export const EffectsSettings = {
       },
       step: 1,
     },
-    unit: '%',
+    units: '%',
     style: 'invert',
   },
   [Effects.PHOBOS] : {
@@ -65,7 +65,7 @@ export const EffectsSettings = {
       },
       step: 0.1,
     },
-    unit: 'px',
+    units: 'px',
     style: 'blur',
   },
   [Effects.HEAT] : {
@@ -76,7 +76,7 @@ export const EffectsSettings = {
       },
       step: 0.1,
     },
-    unit: '',
+    units: '',
     style: 'brightness',
   },
   [Effects.NONE] : {
@@ -87,7 +87,7 @@ export const EffectsSettings = {
       },
       step: 0.1,
     },
-    unit: '',
+    units: '',
     style: '',
   },
 };
