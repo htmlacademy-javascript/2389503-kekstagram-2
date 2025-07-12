@@ -10,7 +10,6 @@ let currentEffect = DEFAULT_EFFECT;
 
 const isEffectDefault = () => currentEffect === DEFAULT_EFFECT;
 
-// 2. Мы передали `noUiSlider` элемент, в который просим отрисовать слайдер, а также минимальное и максимальное значение и шаг.
 noUiSlider.create(sliderElement, {
   range : {
     min: 0,
@@ -21,8 +20,7 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-// 3. Добавим слайдеру слушатель события `update`, которое будет вызвано при изменении положения слайдера, и выводить в консоль параметры колбэка.
-sliderElement.noUiSlider.on('update',() => console.log(sliderElement.noUiSlider.get()));
+sliderElement.noUiSlider.on('update',() => {});
 
 const showSlider = (isShown = true) => {
   if(isShown) {
@@ -38,6 +36,11 @@ export const resetEffects = () => {
   showSlider(false);
 };
 
+const addSliderOptions = (sliderOptions) => {
+  sliderElement.noUiSlider.updateOptions(sliderOptions);
+  sliderElement.noUiSlider.set(sliderOptions.range.max);
+};
+
 effectsContainer.addEventListener('change', ({ target }) => {
   currentEffect = target.value;
   if(isEffectDefault()) {
@@ -46,11 +49,11 @@ effectsContainer.addEventListener('change', ({ target }) => {
   } else {
     showSlider();
     const { slider } = EffectsSettings[currentEffect];
+    addSliderOptions(slider);
     const { units, style } = EffectsSettings[currentEffect];
     imgPreview.style.filter = `${style}(${slider.range.max}${units})`;
   }
 
 });
-
 
 resetEffects();
