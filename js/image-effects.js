@@ -1,10 +1,15 @@
-import { EffectsSettings } from './constants.js';
+import { DEFAULT_EFFECT, EffectsSettings } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__overlay');
 const effectsContainer = uploadForm.querySelector('.effects');
 const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
 const sliderElement = uploadForm.querySelector('.effect-level__slider');
 const imgPreview = uploadForm.querySelector('.img-upload__preview img');
+
+let currentEffect = DEFAULT_EFFECT;
+
+const isEffectDefault = () => currentEffect === DEFAULT_EFFECT;
+
 // 2. Мы передали `noUiSlider` элемент, в который просим отрисовать слайдер, а также минимальное и максимальное значение и шаг.
 noUiSlider.create(sliderElement, {
   range : {
@@ -29,14 +34,17 @@ const showSlider = (isShown = true) => {
   }
 };
 
-
 effectsContainer.addEventListener('change', ({ target }) => {
-  const currentEffect = target.value;
-  const { slider } = EffectsSettings[currentEffect];
-  const { units, style } = EffectsSettings[currentEffect];
-  imgPreview.style.filter = `${style}(${slider.range.max}${units})`;
-});
+  currentEffect = target.value;
+  if(isEffectDefault()) {
+    imgPreview.style.filter = '';
+  } else {
+    const { slider } = EffectsSettings[currentEffect];
+    const { units, style } = EffectsSettings[currentEffect];
+    imgPreview.style.filter = `${style}(${slider.range.max}${units})`;
+  }
 
+});
 
 export const resetEffects = () => {
   showSlider(false);

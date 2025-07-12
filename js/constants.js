@@ -22,6 +22,8 @@ export const Effects = {
   NONE: 'none',
 };
 
+export const DEFAULT_EFFECT = Effects.NONE;
+
 // Настройки эффектов
 export const EffectsSettings = {
   [Effects.CHROME] : {
