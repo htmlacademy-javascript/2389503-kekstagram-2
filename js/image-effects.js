@@ -22,7 +22,7 @@ noUiSlider.create(sliderElement, {
 });
 
 // 3. Добавим слайдеру слушатель события `update`, которое будет вызвано при изменении положения слайдера, и выводить в консоль параметры колбэка.
-sliderElement.noUiSlider.on('update',() => console.log());
+sliderElement.noUiSlider.on('update',() => console.log(sliderElement.noUiSlider.get()));
 
 const showSlider = (isShown = true) => {
   if(isShown) {
@@ -34,11 +34,17 @@ const showSlider = (isShown = true) => {
   }
 };
 
+export const resetEffects = () => {
+  showSlider(false);
+};
+
 effectsContainer.addEventListener('change', ({ target }) => {
   currentEffect = target.value;
   if(isEffectDefault()) {
     imgPreview.style.filter = '';
+    resetEffects();
   } else {
+    showSlider();
     const { slider } = EffectsSettings[currentEffect];
     const { units, style } = EffectsSettings[currentEffect];
     imgPreview.style.filter = `${style}(${slider.range.max}${units})`;
@@ -46,8 +52,5 @@ effectsContainer.addEventListener('change', ({ target }) => {
 
 });
 
-export const resetEffects = () => {
-  showSlider(false);
-};
 
 resetEffects();

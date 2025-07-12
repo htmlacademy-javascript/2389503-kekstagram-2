@@ -50,7 +50,6 @@ const onUploadFieldChange = () => {
 
 uploadField.addEventListener('change', onUploadFieldChange);
 
-
 closeButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   showModal(false);
