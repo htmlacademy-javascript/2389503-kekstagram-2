@@ -34,6 +34,10 @@ noUiSlider.create(sliderElement, {
 });
 
 const renderSliderEffects = () => {
+  if(isEffectDefault()) {
+    imgPreview.style.filter = '';
+    return;
+  }
   const { units, style } = EffectsSettings[currentEffect];
   imgPreview.style.filter = `${style}(${valueElement}${units})`;
 };
@@ -55,8 +59,9 @@ const showSlider = (isShown = true) => {
 };
 
 export const resetEffects = () => {
+  currentEffect = DEFAULT_EFFECT;
   showSlider(false);
-  imgPreview.style.filter = '';
+  renderSliderEffects();
 };
 
 const addSliderOptions = () => {
