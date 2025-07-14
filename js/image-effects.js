@@ -7,6 +7,7 @@ const sliderElement = uploadForm.querySelector('.effect-level__slider');
 const imgPreview = uploadForm.querySelector('.img-upload__preview img');
 
 let currentEffect = DEFAULT_EFFECT;
+let valueElement;
 
 const isEffectDefault = () => currentEffect === DEFAULT_EFFECT;
 
@@ -20,7 +21,15 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-sliderElement.noUiSlider.on('update',() => {});
+const renderSliderEffects = () => {
+  const { units, style } = EffectsSettings[currentEffect];
+  imgPreview.style.filter = `${style}(${valueElement}${units})`;
+};
+
+sliderElement.noUiSlider.on('update',() => {
+  valueElement = sliderElement.noUiSlider.get();
+  renderSliderEffects();
+});
 
 const showSlider = (isShown = true) => {
   if(isShown) {
@@ -34,26 +43,25 @@ const showSlider = (isShown = true) => {
 
 export const resetEffects = () => {
   showSlider(false);
+  imgPreview.style.filter = '';
 };
 
-const addSliderOptions = (sliderOptions) => {
-  sliderElement.noUiSlider.updateOptions(sliderOptions);
-  sliderElement.noUiSlider.set(sliderOptions.range.max);
+const addSliderOptions = () => {
+  const { slider } = EffectsSettings[currentEffect];
+  sliderElement.noUiSlider.updateOptions(slider);
+  sliderElement.noUiSlider.set(slider.range.max);
 };
+
 
 effectsContainer.addEventListener('change', ({ target }) => {
   currentEffect = target.value;
   if(isEffectDefault()) {
-    imgPreview.style.filter = '';
     resetEffects();
   } else {
     showSlider();
-    const { slider } = EffectsSettings[currentEffect];
-    addSliderOptions(slider);
-    const { units, style } = EffectsSettings[currentEffect];
-    imgPreview.style.filter = `${style}(${slider.range.max}${units})`;
+    addSliderOptions();
+    renderSliderEffects();
   }
-
 });
 
 resetEffects();
