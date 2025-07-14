@@ -5,6 +5,7 @@ const effectsContainer = uploadForm.querySelector('.effects');
 const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
 const sliderElement = uploadForm.querySelector('.effect-level__slider');
 const imgPreview = uploadForm.querySelector('.img-upload__preview img');
+const hiddenInput = uploadForm.querySelector('.effect-level__value');
 
 let currentEffect = DEFAULT_EFFECT;
 let valueElement;
@@ -19,6 +20,16 @@ noUiSlider.create(sliderElement, {
   start: 80,
   step: 1,
   connect: 'lower',
+  format: {
+    to: function (value) {
+      // console.log(typeof value);
+      return value;
+    },
+    from: function (value) {
+      console.log(parseFloat(value));
+      return parseFloat(value);
+    }
+  }
 });
 
 const renderSliderEffects = () => {
@@ -29,6 +40,8 @@ const renderSliderEffects = () => {
 sliderElement.noUiSlider.on('update',() => {
   valueElement = sliderElement.noUiSlider.get();
   renderSliderEffects();
+  hiddenInput.value = valueElement;
+  // console.log(typeof hiddenInput.value);
 });
 
 const showSlider = (isShown = true) => {
