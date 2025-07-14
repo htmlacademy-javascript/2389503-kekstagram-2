@@ -22,7 +22,10 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
   format: {
     to: function (value) {
-      return value;
+      if(Number.isInteger(value)) {
+        return value;
+      }
+      return value.toFixed(1);
     },
     from: function (value) {
       return parseFloat(value);
