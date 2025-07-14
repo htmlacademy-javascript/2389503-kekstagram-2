@@ -6,6 +6,8 @@ const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
 const sliderElement = uploadForm.querySelector('.effect-level__slider');
 const imgPreview = uploadForm.querySelector('.img-upload__preview img');
 const hiddenInput = uploadForm.querySelector('.effect-level__value');
+const defaultRadio = uploadForm.querySelector('.effects__radio[value="none"]');
+
 
 let currentEffect = DEFAULT_EFFECT;
 let valueElement;
@@ -60,6 +62,7 @@ const showSlider = (isShown = true) => {
 
 export const resetEffects = () => {
   currentEffect = DEFAULT_EFFECT;
+  defaultRadio.checked = true;
   showSlider(false);
   renderSliderEffects();
 };
