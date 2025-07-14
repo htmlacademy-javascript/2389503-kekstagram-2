@@ -22,11 +22,9 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
   format: {
     to: function (value) {
-      // console.log(typeof value);
       return value;
     },
     from: function (value) {
-      console.log(parseFloat(value));
       return parseFloat(value);
     }
   }
@@ -41,7 +39,6 @@ sliderElement.noUiSlider.on('update',() => {
   valueElement = sliderElement.noUiSlider.get();
   renderSliderEffects();
   hiddenInput.value = valueElement;
-  // console.log(typeof hiddenInput.value);
 });
 
 const showSlider = (isShown = true) => {
@@ -61,8 +58,7 @@ export const resetEffects = () => {
 
 const addSliderOptions = () => {
   const { slider } = EffectsSettings[currentEffect];
-  sliderElement.noUiSlider.updateOptions(slider);
-  sliderElement.noUiSlider.set(slider.range.max);
+  sliderElement.noUiSlider.updateOptions({...slider, start: slider.range.max});
 };
 
 
