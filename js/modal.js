@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { COMMENTS_PORTION, START_VALUE_COUNTER, START } from './constants.js';
 
 const modal = document.querySelector('.big-picture');
 const closeButton = modal.querySelector('.big-picture__cancel');
@@ -12,11 +13,16 @@ const comment = modal.querySelector('.social__comment');
 const commentsLoader = modal.querySelector('.social__comments-loader');
 
 let localComments;
-let renderedCommentsCount = 0;
+let renderedCommentsCount = START_VALUE_COUNTER;
+
+const clearListOfComments = () => {
+  listOfComments.innerHTML = '';
+};
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     modal.classList.add('hidden');
+    clearListOfComments();
   }
 };
 
@@ -47,7 +53,7 @@ const renderLoader = () => {
 const renderComments = () => {
   const fragment = document.createDocumentFragment();
 
-  localComments.splice(0, 5).forEach(({ avatar, name, message }) => {
+  localComments.splice(START, COMMENTS_PORTION).forEach(({ avatar, name, message }) => {
     const cloneComment = comment.cloneNode(true);
     const cloneCommentAvatar = cloneComment.querySelector('.social__picture');
     const cloneCommentText = cloneComment.querySelector('.social__text');
@@ -73,16 +79,9 @@ const renderModal = ({ url, description, likes, comments }) => {
   likesCount.textContent = likes;
   commentTotalCount.textContent = comments.length;
   localComments = [...comments];
-  renderedCommentsCount = 0;
+  renderedCommentsCount = START_VALUE_COUNTER;
   renderComments();
 };
-
-
-const clearListOfComments = () => {
-  listOfComments.innerHTML = '';
-};
-
-clearListOfComments();
 
 export const openModal = (currentPhoto) => {
   showModal();
