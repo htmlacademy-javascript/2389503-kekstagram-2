@@ -93,3 +93,8 @@ export const EffectsSettings = {
     style: '',
   },
 };
+
+export const ServerAddresses = {
+  GETTING: 'https://31.javascript.htmlacademy.pro/kekstagram/data',
+  SENDING: 'https://31.javascript.htmlacademy.pro/kekstagram',
+};
