@@ -1,6 +1,6 @@
 import { ServerAddresses } from './constants.js';
-
+import { renderCards } from './render.js';
 fetch(ServerAddresses.GETTING)
   .then((response) => response.json())
-  .then((data) => console.log(data[0]));
+  .then((cards) => renderCards(cards));
 
