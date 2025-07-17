@@ -56,7 +56,7 @@ closeButton.addEventListener('click', (evt) => {
   showModal(false);
 });
 
-uploadForm.addEventListener('submit', async (evt) => {
+uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   if(isValid()) {
