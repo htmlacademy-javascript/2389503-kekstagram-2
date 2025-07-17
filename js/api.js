@@ -1,6 +1,12 @@
 import { ServerAddresses } from './constants.js';
-import { renderCards } from './render.js';
-fetch(ServerAddresses.GETTING)
-  .then((response) => response.json())
-  .then((cards) => renderCards(cards));
 
+export const getData = () => fetch(ServerAddresses.GETTING)
+  .then((response) => response.json());
+
+export const sendData = (body) => fetch(
+  ServerAddresses.SENDING,
+  {
+    method: 'POST',
+    body,
+  }
+);

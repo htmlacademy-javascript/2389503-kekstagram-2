@@ -1,5 +1,5 @@
 import { isEmptyString } from './util.js';
-import { REGEXP, MAX_COUNT_HASHTAGS, COMMENT_LENGTH, ServerAddresses } from './constants.js';
+import { REGEXP, MAX_COUNT_HASHTAGS, COMMENT_LENGTH } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
@@ -60,25 +60,7 @@ const validateTextDescriptionField = (value) => {
 
 pristine.addValidator(textDescriptionField, validateTextDescriptionField, getTextDescriptionErrorMessage);
 
-uploadForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-  const isValid = pristine.validate();
-
-  if(isValid) {
-    const formData = new FormData(evt.target);
-
-    fetch(
-      ServerAddresses.SENDING,
-      {
-        method: 'POST',
-        body: formData,
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-
-  }
-});
+export const isValid = () => pristine.validate();
 
 export const resetValidation = () => {
   pristine.reset();
