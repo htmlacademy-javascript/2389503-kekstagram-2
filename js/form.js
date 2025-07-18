@@ -63,8 +63,15 @@ uploadForm.addEventListener('submit', (evt) => {
     const formData = new FormData(evt.target);
 
     sendData(formData)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((response) => {
+        if(response.ok) {
+          return response.ok;
+        }
 
+        const { status, statusText } = response;
+        throw new Error(`${status} ${statusText}`);
+      })
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   }
 });
