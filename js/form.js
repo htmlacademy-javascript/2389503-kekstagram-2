@@ -3,6 +3,8 @@ import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
+import { showErrorMessage } from './messages.js';
+
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
@@ -63,9 +65,16 @@ uploadForm.addEventListener('submit', (evt) => {
     const formData = new FormData(evt.target);
 
     sendData(formData)
-      .then(() => showModal(false))
-      .catch((err) => {
-        console.error(err);
+      .then((response) => {
+        if(response.ok) {
+          showModal(false);
+        } else {
+          showErrorMessage();
+        }
+      })
+      .catch(() => {
+        showErrorMessage();
       });
   }
 });
+
