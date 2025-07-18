@@ -56,22 +56,13 @@ closeButton.addEventListener('click', (evt) => {
   showModal(false);
 });
 
+
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-
   if(isValid()) {
     const formData = new FormData(evt.target);
 
     sendData(formData)
-      .then((response) => {
-        if(response.ok) {
-          return response.ok;
-        }
-
-        const { status, statusText } = response;
-        throw new Error(`${status} ${statusText}`);
-      })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      .then(() => showModal(false));
   }
 });
