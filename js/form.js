@@ -1,7 +1,10 @@
 import { resetScale } from './scaling-image.js';
 import { isEscapeKey } from './util.js';
-import { resetValidation } from './validation.js';
+import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
+import { sendData } from './api.js';
+import { showErrorMessage } from './messages.js';
+
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
@@ -54,3 +57,24 @@ closeButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   showModal(false);
 });
+
+
+uploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  if(isValid()) {
+    const formData = new FormData(evt.target);
+
+    sendData(formData)
+      .then((response) => {
+        if(response.ok) {
+          showModal(false);
+        } else {
+          showErrorMessage();
+        }
+      })
+      .catch(() => {
+        showErrorMessage();
+      });
+  }
+});
+

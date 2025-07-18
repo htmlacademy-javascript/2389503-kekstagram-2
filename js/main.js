@@ -1,5 +1,9 @@
-import { createPhotos } from './data.js';
-import { renderCards } from './render.js';
 import './form.js';
+import './api.js';
+import { renderCards } from './render.js';
+import { getData } from './api.js';
 
-renderCards(createPhotos());
+
+getData()
+  .then((cards) => renderCards(cards))
+  .catch((err) => console.log(err));
