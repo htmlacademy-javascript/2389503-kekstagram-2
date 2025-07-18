@@ -63,6 +63,9 @@ uploadForm.addEventListener('submit', (evt) => {
     const formData = new FormData(evt.target);
 
     sendData(formData)
-      .then(() => showModal(false));
+      .then(() => showModal(false))
+      .catch((err) => {
+        console.error(err);
+      });
   }
 });
