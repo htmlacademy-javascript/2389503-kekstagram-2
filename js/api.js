@@ -1,11 +1,20 @@
-import { ServerAddresses } from './constants.js';
+import { BASE_URL, Route } from './constants.js';
+import { showAlert } from './notifications.js';
 
-export const getData = () => fetch(ServerAddresses.GETTING);
+export const getData = () => fetch(`${BASE_URL}${Route.GET_DATA}`)
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error();
+    }
+    return response.json();
+  })
+  .catch(() => showAlert());
 
 export const sendData = (body) => fetch(
-  ServerAddresses.SENDING,
+  `${BASE_URL}${Route.SEND_DATA}`,
   {
     method: 'POST',
     body,
   }
 );
+

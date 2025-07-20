@@ -3,6 +3,7 @@ import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
+import { showMessage } from './notifications.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
@@ -10,16 +11,9 @@ const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const textDescriptionField = uploadForm.querySelector('.text__description');
 const modal = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
+const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
-const closeErrorMessageButton = errorMessage.querySelector('.error__button');
 
-const showErrorMessage = (isShown = true) => {
-  if(isShown) {
-    document.body.append(errorMessage);
-  } else {
-    errorMessage.remove();
-  }
-};
 
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
@@ -34,7 +28,7 @@ const onFocusFieldKeydown = (evt) => {
   }
 };
 
-const showModal = (isShown = true) => {
+export const showModal = (isShown = true) => {
   if (isShown) {
     modal.classList.remove('hidden');
     document.body.classList.add('modal-open');
@@ -75,16 +69,13 @@ uploadForm.addEventListener('submit', (evt) => {
       .then((response) => {
         if(response.ok) {
           showModal(false);
+          showMessage(true, successMessage);
         } else {
-          showErrorMessage();
+          showMessage(true, errorMessage);
         }
       })
       .catch(() => {
-        showErrorMessage();
+        showMessage(true, errorMessage);
       });
   }
-});
-
-closeErrorMessageButton.addEventListener('click', () => {
-  showErrorMessage(false);
 });
