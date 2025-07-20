@@ -4,8 +4,10 @@ import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
 import { showMessage } from './notifications.js';
+import { SubmitButtonText } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 const uploadField = uploadForm.querySelector('.img-upload__input');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const textDescriptionField = uploadForm.querySelector('.text__description');
@@ -60,9 +62,20 @@ closeButton.addEventListener('click', (evt) => {
   showModal(false);
 });
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if(isValid()) {
+    blockSubmitButton();
     const formData = new FormData(evt.target);
 
     sendData(formData)
@@ -76,6 +89,7 @@ uploadForm.addEventListener('submit', (evt) => {
       })
       .catch(() => {
         showMessage(true, errorMessage);
-      });
+      })
+      .finally(() => unblockSubmitButton());
   }
 });

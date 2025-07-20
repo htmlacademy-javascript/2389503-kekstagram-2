@@ -102,3 +102,8 @@ export const Route = {
 };
 
 export const ALERT_SHOW_TIME = 5000;
+
+export const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
