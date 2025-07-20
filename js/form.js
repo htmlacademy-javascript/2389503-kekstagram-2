@@ -13,6 +13,14 @@ const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
 const closeErrorMessageButton = errorMessage.querySelector('.error__button');
 
+const showErrorMessage = (isShown = true) => {
+  if(isShown) {
+    document.body.append(errorMessage);
+  } else {
+    errorMessage.remove();
+  }
+};
+
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
@@ -57,14 +65,6 @@ closeButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   showModal(false);
 });
-
-const showErrorMessage = (isShown = true) => {
-  if(isShown) {
-    document.body.append(errorMessage);
-  } else {
-    errorMessage.remove();
-  }
-};
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
