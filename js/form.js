@@ -3,8 +3,6 @@ import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
-import { showErrorMessage } from './messages.js';
-
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadField = uploadForm.querySelector('.img-upload__input');
@@ -12,11 +10,13 @@ const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const textDescriptionField = uploadForm.querySelector('.text__description');
 const modal = uploadForm.querySelector('.img-upload__overlay');
 const closeButton = uploadForm.querySelector('.img-upload__cancel');
-
+const errorMessage = document.querySelector('#error').content.querySelector('.error');
+const closeErrorMessageButton = errorMessage.querySelector('.error__button');
 
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     modal.classList.add('hidden');
+    uploadForm.reset();
   }
 };
 
@@ -58,6 +58,13 @@ closeButton.addEventListener('click', (evt) => {
   showModal(false);
 });
 
+const showErrorMessage = (isShown = true) => {
+  if(isShown) {
+    document.body.append(errorMessage);
+  } else {
+    errorMessage.remove();
+  }
+};
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -78,3 +85,6 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
+closeErrorMessageButton.addEventListener('click', () => {
+  showErrorMessage(false);
+});
