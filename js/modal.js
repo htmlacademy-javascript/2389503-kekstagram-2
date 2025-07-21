@@ -32,9 +32,9 @@ const showModal = (isShown = true) => {
     modal.classList.remove('hidden');
     document.addEventListener('keydown', onDocumentKeydown);
   } else {
+    document.body.classList.remove('modal-open');
     modal.classList.add('hidden');
     document.removeEventListener('keydown', onDocumentKeydown);
-    document.body.classList.remove('modal-open');
   }
 };
 
