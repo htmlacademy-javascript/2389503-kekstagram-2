@@ -84,7 +84,7 @@ uploadForm.addEventListener('submit', (evt) => {
           showModal(false);
           showMessage(true, successMessage);
         } else {
-          showMessage(true, errorMessage);
+          throw new Error();
         }
       })
       .catch(() => {
