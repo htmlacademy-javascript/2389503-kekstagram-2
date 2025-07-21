@@ -1,5 +1,4 @@
 import { BASE_URL, Route } from './constants.js';
-import { showAlert } from './notifications.js';
 
 export const getData = () => fetch(`${BASE_URL}${Route.GET_DATA}`)
   .then((response) => {
@@ -7,8 +6,8 @@ export const getData = () => fetch(`${BASE_URL}${Route.GET_DATA}`)
       throw new Error();
     }
     return response.json();
-  })
-  .catch(() => showAlert());
+  });
+
 
 export const sendData = (body) => fetch(
   `${BASE_URL}${Route.SEND_DATA}`,
