@@ -15,7 +15,6 @@ export const renderCards = (photos) => {
   localPhotos = [...photos];
 
   localPhotos
-    .sort((a, b) => a.likes - b.likes)
     .forEach(({ id, url, description, likes, comments }) => {
       const cloneItem = photoTemplate.cloneNode(true);
       const pictureImage = cloneItem.querySelector('.picture__img');
