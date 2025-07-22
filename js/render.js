@@ -14,18 +14,20 @@ export const renderCards = (photos) => {
   const similarListFragment = document.createDocumentFragment();
   localPhotos = [...photos];
 
-  localPhotos.forEach(({ id, url, description, likes, comments }) => {
-    const cloneItem = photoTemplate.cloneNode(true);
-    const pictureImage = cloneItem.querySelector('.picture__img');
-    const pictureLikes = cloneItem.querySelector('.picture__likes');
-    const pictureComments = cloneItem.querySelector('.picture__comments');
-    cloneItem.dataset.id = id;
-    pictureImage.src = url;
-    pictureImage.alt = description;
-    pictureLikes.textContent = likes;
-    pictureComments.textContent = comments.length;
-    similarListFragment.append(cloneItem);
-  });
+  localPhotos
+    .sort((a, b) => a.likes - b.likes)
+    .forEach(({ id, url, description, likes, comments }) => {
+      const cloneItem = photoTemplate.cloneNode(true);
+      const pictureImage = cloneItem.querySelector('.picture__img');
+      const pictureLikes = cloneItem.querySelector('.picture__likes');
+      const pictureComments = cloneItem.querySelector('.picture__comments');
+      cloneItem.dataset.id = id;
+      pictureImage.src = url;
+      pictureImage.alt = description;
+      pictureLikes.textContent = likes;
+      pictureComments.textContent = comments.length;
+      similarListFragment.append(cloneItem);
+    });
 
   picturesContainer.append(similarListFragment);
 };
