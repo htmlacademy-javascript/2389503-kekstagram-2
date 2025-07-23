@@ -9,11 +9,17 @@ const photoTemplate = document.querySelector('#picture')
 
 let localPhotos;
 
+const clear = () => {
+  picturesContainer.querySelectorAll('.picture').forEach((item) => item.remove());
+};
+
+
 export const renderCards = (photos) => {
   // Создаю коробочку, в которую я буду складывать отображённые фотографии
   const similarListFragment = document.createDocumentFragment();
-  localPhotos = [...photos];
 
+  clear();
+  localPhotos = [...photos];
   localPhotos
     .forEach(({ id, url, description, likes, comments }) => {
       const cloneItem = photoTemplate.cloneNode(true);
