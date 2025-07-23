@@ -6,6 +6,11 @@ const imgFiltersForm = imgFilters.querySelector('.img-filters__form');
 
 let localPhotos;
 
+export const initFilters = (pictures) => {
+  localPhotos = [...pictures];
+  imgFilters.classList.remove('img-filters--inactive');
+};
+
 const FilterSettings = {
   [Filters.DEFAULT] : () => localPhotos,
   [Filters.RANDOM] : () => [...localPhotos].sort(() => Math.random() - 0.5).splice(0, 10),
@@ -17,20 +22,10 @@ const setActiveButton = (button) => {
   button.classList.add(imageFiltersButtonActive);
 };
 
-const setFilterSettings = () => {
-  imgFiltersForm.addEventListener('click', ({ target }) => {
-    const button = target.closest('.img-filters__button');
-    if(button) {
-      setActiveButton(button);
-      renderCards(FilterSettings[button.id]());
-    }
-  });
-};
-
-export const initFilters = (pictures) => {
-
-  localPhotos = [...pictures];
-  imgFilters.classList.remove('img-filters--inactive');
-
-  setFilterSettings();
-};
+imgFiltersForm.addEventListener('click', ({ target }) => {
+  const button = target.closest('.img-filters__button');
+  if(button) {
+    setActiveButton(button);
+    renderCards(FilterSettings[button.id]());
+  }
+});
