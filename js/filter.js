@@ -1,4 +1,4 @@
-import { Filters, imageFiltersButtonActive } from './constants';
+import { Filters, imageFiltersButtonActive, RandomFilterSettings } from './constants';
 import { renderCards } from './render';
 
 const imgFilters = document.querySelector('.img-filters--inactive');
@@ -13,7 +13,7 @@ export const initFilters = (pictures) => {
 
 const FilterSettings = {
   [Filters.DEFAULT] : () => localPhotos,
-  [Filters.RANDOM] : () => [...localPhotos].sort(() => Math.random() - 0.5).splice(0, 10),
+  [Filters.RANDOM] : () => [...localPhotos].sort(() => Math.random() - RandomFilterSettings.MATH_VALUE).splice(RandomFilterSettings.START, RandomFilterSettings.END),
   [Filters.DISCUSSED] : () => [...localPhotos].sort((a, b) => b.comments.length - a.comments.length),
 };
 

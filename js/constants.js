@@ -115,3 +115,9 @@ export const Filters = {
 };
 
 export const imageFiltersButtonActive = 'img-filters__button--active';
+
+export const RandomFilterSettings = {
+  MATH_VALUE : 0.5,
+  START: 0,
+  END: 10,
+};
