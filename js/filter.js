@@ -1,10 +1,13 @@
-import { Filters, imageFiltersButtonActive, RandomFilterSettings } from './constants';
+import { Filters, imageFiltersButtonActive, RandomFilterSettings, RENDER_DELAY } from './constants';
 import { renderCards } from './render';
+import { debounce } from './util';
 
 const imgFilters = document.querySelector('.img-filters--inactive');
 const imgFiltersForm = imgFilters.querySelector('.img-filters__form');
 
 let localPhotos;
+
+const debouncedRender = debounce(renderCards, RENDER_DELAY);
 
 export const initFilters = (pictures) => {
   localPhotos = [...pictures];
@@ -26,6 +29,6 @@ imgFiltersForm.addEventListener('click', ({ target }) => {
   const button = target.closest('.img-filters__button');
   if(button) {
     setActiveButton(button);
-    renderCards(FilterSettings[button.id]());
+    debouncedRender(FilterSettings[button.id]());
   }
 });

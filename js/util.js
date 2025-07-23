@@ -9,3 +9,11 @@ export const isEscapeKey = (evt) => evt.key === 'Escape';
 // Функция принимает строку и определяет является ли строка пустой, то есть имеется ли у строки длина
 // Если длина отсутствует, то возвращает true
 export const isEmptyString = (value) => !value.trim().length;
+
+export const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
