@@ -107,3 +107,11 @@ export const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...'
 };
+
+const Filters = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'discussed',
+};
+
+export const imageFiltersButtonActive = 'img-filters__button--active';

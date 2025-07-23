@@ -1,24 +1,20 @@
-const imageFilters = document.querySelector('.img-filters');
-const filterDefaultButton = imageFilters.querySelector('#filter-default');
-const filterRandomButton = imageFilters.querySelector('#filter-random');
-const filterDiscussedButton = imageFilters.querySelector('#filter-discussed');
+import { imageFiltersButtonActive } from './constants';
 
-export const showFilters = () => imageFilters.classList.remove('img-filters--inactive');
+const imgFilters = document.querySelector('.img-filters--inactive');
+const imgFiltersForm = imgFilters.querySelector('.img-filters__form');
 
-export const setDefaultFilter = () => {
-  filterDefaultButton.addEventListener('click', () => {
+export const initFilters = () => imgFilters.classList.remove('img-filters--inactive');
 
-  });
+const setActiveButton = (button) => {
+  imgFiltersForm.querySelector(`.${imageFiltersButtonActive}`).classList.remove(imageFiltersButtonActive);
+  button.classList.add(imageFiltersButtonActive);
 };
 
-export const setRandomFilter = () => {
-  filterRandomButton.addEventListener('click', () => {
+imgFiltersForm.addEventListener('click', ({ target }) => {
 
-  });
-};
+  const button = target.closest('.img-filters__button');
+  if(button) {
+    setActiveButton(button);
+  }
 
-export const setDiscussedFilter = () => {
-  filterDiscussedButton.addEventListener('click', () => {
-
-  });
-};
+});
