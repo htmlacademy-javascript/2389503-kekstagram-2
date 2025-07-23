@@ -108,10 +108,10 @@ export const SubmitButtonText = {
   SENDING: 'Публикую...'
 };
 
-const Filters = {
+export const Filters = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
-  DISCUSSED: 'discussed',
+  DISCUSSED: 'filter-discussed',
 };
 
 export const imageFiltersButtonActive = 'img-filters__button--active';

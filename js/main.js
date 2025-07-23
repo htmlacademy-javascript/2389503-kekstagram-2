@@ -7,6 +7,6 @@ import { initFilters } from './filter.js';
 getData()
   .then((cards) => {
     renderCards(cards);
-    initFilters();
+    initFilters(cards);
   })
   .catch(() => showAlert());
