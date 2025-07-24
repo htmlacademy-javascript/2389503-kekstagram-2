@@ -9,23 +9,30 @@ const photoTemplate = document.querySelector('#picture')
 
 let localPhotos;
 
+const clear = () => {
+  picturesContainer.querySelectorAll('.picture').forEach((item) => item.remove());
+};
+
+
 export const renderCards = (photos) => {
   // Создаю коробочку, в которую я буду складывать отображённые фотографии
   const similarListFragment = document.createDocumentFragment();
-  localPhotos = [...photos];
 
-  localPhotos.forEach(({ id, url, description, likes, comments }) => {
-    const cloneItem = photoTemplate.cloneNode(true);
-    const pictureImage = cloneItem.querySelector('.picture__img');
-    const pictureLikes = cloneItem.querySelector('.picture__likes');
-    const pictureComments = cloneItem.querySelector('.picture__comments');
-    cloneItem.dataset.id = id;
-    pictureImage.src = url;
-    pictureImage.alt = description;
-    pictureLikes.textContent = likes;
-    pictureComments.textContent = comments.length;
-    similarListFragment.append(cloneItem);
-  });
+  clear();
+  localPhotos = [...photos];
+  localPhotos
+    .forEach(({ id, url, description, likes, comments }) => {
+      const cloneItem = photoTemplate.cloneNode(true);
+      const pictureImage = cloneItem.querySelector('.picture__img');
+      const pictureLikes = cloneItem.querySelector('.picture__likes');
+      const pictureComments = cloneItem.querySelector('.picture__comments');
+      cloneItem.dataset.id = id;
+      pictureImage.src = url;
+      pictureImage.alt = description;
+      pictureLikes.textContent = likes;
+      pictureComments.textContent = comments.length;
+      similarListFragment.append(cloneItem);
+    });
 
   picturesContainer.append(similarListFragment);
 };
