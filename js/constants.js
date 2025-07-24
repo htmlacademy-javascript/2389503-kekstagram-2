@@ -123,3 +123,5 @@ export const RandomFilterSettings = {
 };
 
 export const RENDER_DELAY = 500;
+
+export const FILE_TYPES = ['png', 'jpg', 'jpeg', 'webp'];

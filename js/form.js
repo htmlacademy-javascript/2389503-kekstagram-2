@@ -5,6 +5,7 @@ import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
 import { showMessage } from './notifications.js';
 import { SubmitButtonText } from './constants.js';
+import { renderPreview } from './image-preview.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
@@ -53,6 +54,7 @@ export const showModal = (isShown = true) => {
 
 const onUploadFieldChange = () => {
   showModal(true);
+  renderPreview();
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
