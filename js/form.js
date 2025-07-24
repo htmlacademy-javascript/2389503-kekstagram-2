@@ -54,7 +54,7 @@ export const showModal = (isShown = true) => {
 const onUploadFieldChange = () => {
   showModal(true);
   const file = uploadField.files[0];
-  console.log(file.name);
+  const fileName = file.name.toLowerCase();
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
