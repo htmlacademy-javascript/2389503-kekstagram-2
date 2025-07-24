@@ -4,12 +4,12 @@ import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
 import { showMessage } from './notifications.js';
-import { FILE_TYPES, SubmitButtonText } from './constants.js';
+import { SubmitButtonText } from './constants.js';
+import { renderPreview } from './image-preview.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 const uploadField = uploadForm.querySelector('.img-upload__input');
-const imageUploadPreview = document.querySelector('.img-upload__preview img');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const textDescriptionField = uploadForm.querySelector('.text__description');
 const modal = uploadForm.querySelector('.img-upload__overlay');
@@ -54,16 +54,7 @@ export const showModal = (isShown = true) => {
 
 const onUploadFieldChange = () => {
   showModal(true);
-  const file = uploadField.files[0];
-  const fileName = file.name.toLowerCase();
-  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
-  if(matches) {
-    imageUploadPreview.src = URL.createObjectURL(file);
-    document.querySelectorAll('.effects__preview')
-      .forEach((item) => {
-        item.style.backgroundImage = `URL('${URL.createObjectURL(file)}')`;
-      });
-  }
+  renderPreview();
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
