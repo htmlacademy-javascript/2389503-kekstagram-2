@@ -53,6 +53,8 @@ export const showModal = (isShown = true) => {
 
 const onUploadFieldChange = () => {
   showModal(true);
+  const file = uploadField.files[0];
+  console.log(file.name);
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
