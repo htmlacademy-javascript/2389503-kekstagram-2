@@ -4,7 +4,7 @@ import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
 import { showMessage } from './notifications.js';
-import { SubmitButtonText } from './constants.js';
+import { FILE_TYPES, SubmitButtonText } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
@@ -55,6 +55,7 @@ const onUploadFieldChange = () => {
   showModal(true);
   const file = uploadField.files[0];
   const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
