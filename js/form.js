@@ -9,6 +9,7 @@ import { FILE_TYPES, SubmitButtonText } from './constants.js';
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 const uploadField = uploadForm.querySelector('.img-upload__input');
+const imageUploadPreview = document.querySelector('.img-upload__preview img');
 const hashtagsField = uploadForm.querySelector('.text__hashtags');
 const textDescriptionField = uploadForm.querySelector('.text__description');
 const modal = uploadForm.querySelector('.img-upload__overlay');
@@ -56,6 +57,13 @@ const onUploadFieldChange = () => {
   const file = uploadField.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((item) => fileName.endsWith(item));
+  if(matches) {
+    imageUploadPreview.src = URL.createObjectURL(file);
+    document.querySelectorAll('.effects__preview')
+      .forEach((item) => {
+        item.style.backgroundImage = `URL('${URL.createObjectURL(file)}')`;
+      });
+  }
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
