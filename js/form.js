@@ -1,11 +1,11 @@
 import { resetScale } from './scaling-image.js';
-import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetEffects } from './image-effects.js';
 import { sendData } from './api.js';
 import { showMessage } from './notifications.js';
 import { SubmitButtonText } from './constants.js';
 import { renderPreview } from './image-preview.js';
+import { removeEscapeControl, setEscapeControl } from './escape-control.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
@@ -17,33 +17,23 @@ const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
 
-
-const onDocumentKeydown = (evt) => {
-  if(isEscapeKey(evt)) {
-    modal.classList.add('hidden');
-    uploadForm.reset();
-  }
-};
-
-const onFocusFieldKeydown = (evt) => {
-  if(isEscapeKey(evt)) {
-    evt.stopPropagation();
-  }
-};
+// const onFocusFieldKeydown = (evt) => {
+//   if(isEscapeKey(evt)) {
+//     evt.stopPropagation();
+//   }
+// };
 
 export const showModal = (isShown = true) => {
   if (isShown) {
     modal.classList.remove('hidden');
     document.body.classList.add('modal-open');
-    document.addEventListener('keydown', onDocumentKeydown);
-    hashtagsField.addEventListener('keydown', onFocusFieldKeydown);
-    textDescriptionField.addEventListener('keydown', onFocusFieldKeydown);
+    // hashtagsField.addEventListener('keydown', onFocusFieldKeydown);
+    // textDescriptionField.addEventListener('keydown', onFocusFieldKeydown);
   } else {
     modal.classList.add('hidden');
     document.body.classList.remove('modal-open');
-    document.removeEventListener('keydown', onDocumentKeydown);
-    hashtagsField.removeEventListener('keydown', onFocusFieldKeydown);
-    textDescriptionField.removeEventListener('keydown', onFocusFieldKeydown);
+    // hashtagsField.removeEventListener('keydown', onFocusFieldKeydown);
+    // textDescriptionField.removeEventListener('keydown', onFocusFieldKeydown);
 
     uploadForm.reset();
     resetScale();
@@ -55,6 +45,9 @@ export const showModal = (isShown = true) => {
 const onUploadFieldChange = () => {
   showModal(true);
   renderPreview();
+  setEscapeControl(() => {
+    showModal(false);
+  });
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);
@@ -62,6 +55,7 @@ uploadField.addEventListener('change', onUploadFieldChange);
 closeButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   showModal(false);
+  removeEscapeControl();
 });
 
 const blockSubmitButton = () => {
@@ -84,6 +78,7 @@ uploadForm.addEventListener('submit', (evt) => {
       .then((response) => {
         if(response.ok) {
           showModal(false);
+          removeEscapeControl();
           showMessage(true, successMessage);
         } else {
           throw new Error();

@@ -1,4 +1,5 @@
 import { ALERT_SHOW_TIME } from './constants';
+import { removeEscapeControl, setEscapeControl } from './escape-control';
 
 const dataError = document.querySelector('#data-error').content.querySelector('.data-error');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
@@ -9,6 +10,9 @@ const closeSuccessMessageButton = successMessage.querySelector('.success__button
 export const showMessage = (isShown = true, messageElement) => {
   if(isShown) {
     document.body.append(messageElement);
+    setEscapeControl(() => {
+      messageElement.remove();
+    });
   } else {
     messageElement.remove();
   }
@@ -16,7 +20,6 @@ export const showMessage = (isShown = true, messageElement) => {
 
 export const showAlert = () => {
   document.body.append(dataError);
-
   setTimeout (() => {
     dataError.remove();
   }, ALERT_SHOW_TIME);
@@ -24,8 +27,10 @@ export const showAlert = () => {
 
 closeErrorMessageButton.addEventListener('click', () => {
   showMessage(false, errorMessage);
+  removeEscapeControl();
 });
 
 closeSuccessMessageButton.addEventListener('click', () => {
   showMessage(false, successMessage);
+  removeEscapeControl();
 });
