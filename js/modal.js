@@ -1,5 +1,5 @@
-import { isEscapeKey } from './util.js';
 import { COMMENTS_PORTION, START_VALUE_COUNTER, START } from './constants.js';
+import { removeEscapeControl, setEscapeControl } from './escape-control.js';
 
 const modal = document.querySelector('.big-picture');
 const closeButton = modal.querySelector('.big-picture__cancel');
@@ -19,22 +19,13 @@ const clearListOfComments = () => {
   listOfComments.innerHTML = '';
 };
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    modal.classList.add('hidden');
-    clearListOfComments();
-  }
-};
-
 const showModal = (isShown = true) => {
   if (isShown) {
     document.body.classList.add('modal-open');
     modal.classList.remove('hidden');
-    document.addEventListener('keydown', onDocumentKeydown);
   } else {
     document.body.classList.remove('modal-open');
     modal.classList.add('hidden');
-    document.removeEventListener('keydown', onDocumentKeydown);
   }
 };
 
@@ -83,19 +74,19 @@ const renderModal = ({ url, description, likes, comments }) => {
   renderComments();
 };
 
-export const openModal = (currentPhoto) => {
-  showModal();
-  renderModal(currentPhoto);
-};
-
 const closeModal = () => {
   showModal(false);
-
-  clearListOfComments();
 };
 
-// Подключаю обработчик клика на кнопку закрытия
+export const openModal = (currentPhoto) => {
+  clearListOfComments();
+  showModal();
+  renderModal(currentPhoto);
+  setEscapeControl(closeModal);
+};
+
+
 closeButton.addEventListener('click', () => {
-  // При клике модальное окно закрывается
   closeModal();
+  removeEscapeControl();
 });

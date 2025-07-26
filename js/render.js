@@ -1,8 +1,6 @@
 import { openModal } from './modal.js';
-// Нахожу контейнер для изображений от других пользователей
-const picturesContainer = document.querySelector('.pictures');
 
-// Нахожу шаблон фотографии
+const picturesContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -15,7 +13,6 @@ const clear = () => {
 
 
 export const renderCards = (photos) => {
-  // Создаю коробочку, в которую я буду складывать отображённые фотографии
   const similarListFragment = document.createDocumentFragment();
 
   clear();
