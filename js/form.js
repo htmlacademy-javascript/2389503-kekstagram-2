@@ -50,14 +50,9 @@ closeButton.addEventListener('click', (evt) => {
   removeEscapeControl();
 });
 
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+const blockSubmitButton = (isBlocked = true) => {
+  submitButton.disabled = isBlocked;
+  submitButton.textContent = isBlocked ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
 };
 
 uploadForm.addEventListener('submit', (evt) => {
@@ -79,6 +74,6 @@ uploadForm.addEventListener('submit', (evt) => {
       .catch(() => {
         showMessage(true, errorMessage);
       })
-      .finally(() => unblockSubmitButton());
+      .finally(() => blockSubmitButton(false));
   }
 });
