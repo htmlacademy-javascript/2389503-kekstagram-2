@@ -42,12 +42,14 @@ export const showModal = (isShown = true) => {
   }
 };
 
+const canCloseModal = () => !(document.activeElement === hashtagsField || document.activeElement === textDescriptionField);
+
 const onUploadFieldChange = () => {
   showModal(true);
   renderPreview();
   setEscapeControl(() => {
     showModal(false);
-  });
+  }, canCloseModal);
 };
 
 uploadField.addEventListener('change', onUploadFieldChange);

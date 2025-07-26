@@ -6,6 +6,10 @@ let listener = null;
 const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     const lastIndex = windows.length - 1;
+
+    if(windows[lastIndex].condition && !windows[lastIndex].condition()) {
+      return;
+    }
     windows[lastIndex].closeFunction();
     windows.length -= 1;
 

@@ -25,12 +25,16 @@ export const showAlert = () => {
   }, ALERT_SHOW_TIME);
 };
 
-closeErrorMessageButton.addEventListener('click', () => {
-  showMessage(false, errorMessage);
-  removeEscapeControl();
+errorMessage.addEventListener('click', ({ target }) => {
+  if (target === closeErrorMessageButton || target === errorMessage) {
+    showMessage(false, errorMessage);
+    removeEscapeControl();
+  }
 });
 
-closeSuccessMessageButton.addEventListener('click', () => {
-  showMessage(false, successMessage);
-  removeEscapeControl();
+successMessage.addEventListener('click', ({ target }) => {
+  if(target === closeSuccessMessageButton || target === successMessage) {
+    showMessage(false, successMessage);
+    removeEscapeControl();
+  }
 });
