@@ -76,10 +76,10 @@ const renderModal = ({ url, description, likes, comments }) => {
 
 const closeModal = () => {
   showModal(false);
-  clearListOfComments();
 };
 
 export const openModal = (currentPhoto) => {
+  clearListOfComments();
   showModal();
   renderModal(currentPhoto);
   setEscapeControl(closeModal);
