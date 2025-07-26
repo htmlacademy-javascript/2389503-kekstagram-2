@@ -17,23 +17,13 @@ const closeButton = uploadForm.querySelector('.img-upload__cancel');
 const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
 
-// const onFocusFieldKeydown = (evt) => {
-//   if(isEscapeKey(evt)) {
-//     evt.stopPropagation();
-//   }
-// };
-
 export const showModal = (isShown = true) => {
   if (isShown) {
     modal.classList.remove('hidden');
     document.body.classList.add('modal-open');
-    // hashtagsField.addEventListener('keydown', onFocusFieldKeydown);
-    // textDescriptionField.addEventListener('keydown', onFocusFieldKeydown);
   } else {
     modal.classList.add('hidden');
     document.body.classList.remove('modal-open');
-    // hashtagsField.removeEventListener('keydown', onFocusFieldKeydown);
-    // textDescriptionField.removeEventListener('keydown', onFocusFieldKeydown);
 
     uploadForm.reset();
     resetScale();
